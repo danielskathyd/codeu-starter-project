@@ -46,6 +46,20 @@ function showMessageFormIfViewingSelf() {
       });
 }
 
+function showMessageFormIfLoggedIn() {
+  fetch('/login-status')
+      .then((response) => {
+    return response.json();
+})
+.then((loginStatus) => {
+    if (loginStatus.isLoggedIn) {
+    const messageForm = document.getElementById('message-form');
+    messageForm.action = '/messages?recipient=' + parameterUsername;
+    messageForm.classList.remove('hidden');
+  }
+});
+}
+
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
   const url = '/messages?user=' + parameterUsername;
