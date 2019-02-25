@@ -1,5 +1,7 @@
-<<<<<<< HEAD
-/target/
-=======
 target
->>>>>>> c9dd6c95a61ebd4ff0a4649d5441b6321013ea9f
+.settings
+.classpath
+.project
+.idea
+*.iml
+.DS_Store
