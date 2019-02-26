@@ -30,11 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
-/*
-How does MessageServlet.java fetch: doGet()---> calls dataStore.messages and store them as list and store messages?0
-                             store: doPOST() --> Message message = new Message(user, text); datastore.storeMessage(message);
-*/
-
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
 public class MessageServlet extends HttpServlet {
@@ -57,14 +52,11 @@ public class MessageServlet extends HttpServlet {
 
     String user = request.getParameter("user");
 
-    //return empty arr
     if (user == null || user.equals("")) {
-      // Request is invalid, return empty array
       response.getWriter().println("[]");
       return;
     }
 
-    //Get List of messages from datastore and then return them as json
     List<Message> messages = datastore.getMessages(user);
     Gson gson = new Gson();
     String json = gson.toJson(messages);
@@ -86,13 +78,9 @@ public class MessageServlet extends HttpServlet {
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
     String recipient = request.getParameter("recipient");
 
-    //Creates object message with parameter : user and
-    // message text. and recipient Then stores new message object in datastore
     Message message = new Message(user, text, recipient);
     datastore.storeMessage(message);
 
-    //redirect so the user returns to the page they came
-    // from instead of going back to their own page:
     response.sendRedirect("/user-page.html?user=" + recipient);
   }
 }

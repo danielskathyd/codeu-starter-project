@@ -27,9 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/* How does Datastore.java load: uses getMessage() to load messages. Loads message for a specific user in descending order
- save messages: uses storeMessage to store message. ?  */
-
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
@@ -49,7 +46,6 @@ public class Datastore {
 
     datastore.put(messageEntity);
   }
-
 
   /**
    * Gets messages posted by a specific user.
