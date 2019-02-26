@@ -6,13 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c285040-fc24-49c2-91b3-280a68439d9b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/codeu/data/Datastore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/codeu/data/Datastore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/codeu/data/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/codeu/data/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/codeu/servlets/MessageServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/codeu/servlets/MessageServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/user-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-page.html" afterDir="false" />
-    </list>
+    <list default="true" id="8c285040-fc24-49c2-91b3-280a68439d9b" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,20 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/user-page-loader.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,11 +23,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/js/user-page-loader.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/codeu/data/Message.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/codeu/servlets/MessageServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/google/codeu/data/Datastore.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/user-page.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/user-page-loader.js" />
       </list>
     </option>
   </component>
@@ -83,15 +64,34 @@
               <item name="codeu-starter-project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="codeu-starter-project" type="b2602c69:ProjectViewProjectNode" />
               <item name="codeu-starter-project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="codeu-starter-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="codeu-starter-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="google" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="codeu-starter-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="codeu-starter-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="google" type="462c0819:PsiDirectoryNode" />
+              <item name="codeu" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -104,7 +104,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551204165021" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551204864164" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -160,18 +160,17 @@
       <option name="presentableId" value="Default" />
       <updated>1550962815209</updated>
       <workItem from="1550962823573" duration="7687000" />
-      <workItem from="1551202322905" duration="1538000" />
+      <workItem from="1551202322905" duration="1713000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9225000" />
+    <option name="totallyTimeSpent" value="9400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.024232633" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23990306" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -304,8 +303,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/js/user-page-loader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+        <state relative-caret-position="15">
+          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
