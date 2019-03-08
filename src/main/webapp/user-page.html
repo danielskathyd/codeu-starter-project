@@ -23,6 +23,8 @@ limitations under the License.
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
   </head>
+  
+  
   <body onload="buildUI();">
     <nav>
       <ul id="navigation">
@@ -30,6 +32,14 @@ limitations under the License.
       </ul>
     </nav>
     <h1 id="page-title">User Page</h1>
+    <div id = "about-me-container">Enter</div>
+    	<div id="about-me-form" class="hidden">
+    	<form action="/about" method = "POST">
+    		<textarea name="about-me" placeholder = "about me" rows=4 required></textarea>
+    		<br/>
+    		<input type="submit" value = "Submit">
+    	</form>
+    </div>
 
     <form id="message-form" action="/messages" method="POST" class="hidden">
       Enter a new message:
@@ -40,16 +50,10 @@ limitations under the License.
     </form>
     <hr/>
     
-    <div id = "about-me-container">Loading...</div>
-    	<div id="about-me-form" class="hidden">
-    	<form action="/about" method = "POST">
-    		<textarea name="about-me" placeholder = "about me" rows=4 required></textarea>
-    		<br/>
-    		<input type="submit" value = "Submit">
-    	</form>
-    </div>
+    
 
     <div id="message-container">Loading...</div>
 
   </body>
+  
 </html>
