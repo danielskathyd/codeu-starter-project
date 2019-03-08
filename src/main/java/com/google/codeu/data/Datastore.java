@@ -37,7 +37,9 @@ public class Datastore {
     datastore = DatastoreServiceFactory.getDatastoreService();
   }
 
-  /** Stores the Message in Datastore. */
+  /**
+   * Stores the Message in Datastore.
+   */
   public void storeMessage(Message message) {
     Entity messageEntity = new Entity("Message", message.getId().toString());
     messageEntity.setProperty("user", message.getUser());
@@ -48,26 +50,28 @@ public class Datastore {
     datastore.put(messageEntity);
   }
 
-  /** Returns the total number of messages for all users. */
-  public int getTotalMessageCount(){
-   Query query = new Query("Message");
-   PreparedQuery results = datastore.prepare(query);
-   return results.countEntities(FetchOptions.Builder.withLimit(1000));
+  /**
+   * Returns the total number of messages for all users.
+   */
+  public int getTotalMessageCount() {
+    Query query = new Query("Message");
+    PreparedQuery results = datastore.prepare(query);
+    return results.countEntities(FetchOptions.Builder.withLimit(1000));
   }
 
   /**
    * Gets messages posted by a specific user.
    *
    * @return a list of messages posted by the user, or empty list if user has never posted a
-   *     message. List is sorted by time descending.
+   * message. List is sorted by time descending.
    */
   public List<Message> getMessages(String user) {
     List<Message> messages = new ArrayList<>();
 
     Query query =
-        new Query("Message")
-            .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
-            .addSort("timestamp", SortDirection.DESCENDING);
+            new Query("Message")
+                    .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                    .addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
@@ -90,12 +94,12 @@ public class Datastore {
     return messages;
   }
 
-  public List<Message> getAllMessages(){
+  public List<Message> getAllMessages() {
     List<Message> allMessage = new ArrayList<>();
     Query query = new Query("Message")
             .addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()){
+    for (Entity entity : results.asIterable()) {
       try {
         String idString = entity.getKey().getName();
         UUID id = UUID.fromString(idString);
