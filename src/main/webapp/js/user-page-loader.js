@@ -49,16 +49,16 @@ function showMessageFormIfViewingSelf() {
 }
 
 function showMessageFormIfLoggedIn() {
-  fetch('/login-status')
-      .then((response) => {
-    return response.json();
+    fetch('/login-status')
+        .then((response) => {
+        return response.json();
 })
 .then((loginStatus) => {
-    if (loginStatus.isLoggedIn) {
-    const messageForm = document.getElementById('message-form');
-    messageForm.action = '/messages?recipient=' + parameterUsername;
-    messageForm.classList.remove('hidden');
-  }
+        if (loginStatus.isLoggedIn) {
+        const messageForm = document.getElementById('message-form');
+        messageForm.action = '/messages?recipient=' + parameterUsername;
+        messageForm.classList.remove('hidden');
+    }
 });
 }
 
@@ -97,16 +97,15 @@ function buildMessageDiv(message) {
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
-    /*
+
    var text = message.text,
     converter = new showdown.Converter(),
     html = converter.makeHtml(text);
   
-    console.log(text);
   
     bodyDiv.innerHTML = html;
 
-    */
+  
 
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
@@ -125,26 +124,9 @@ function fetchAboutMe(){
     const aboutMeContainer = document.getElementById('about-me-container');
     console.log(aboutMe);
     if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
-    }
-    
-    aboutMeContainer.innerHTML = aboutMe;
-
-  });
-}
-
-function fetchAboutMeMarkdown(){
-  
-  const url = '/about?user=' + parameterUsername;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
-    console.log(aboutMe);
-    if(aboutMe == ''){
       aboutMe = 'This user has not entered any information about me yet.';
     }
-    else{
+    
    
     
     //aboutMeContainer.innerHTML = aboutMe;
@@ -155,17 +137,21 @@ function fetchAboutMeMarkdown(){
     console.log(text);
   
     aboutMeContainer.innerHTML = html;
-    }
+    
 
   });
 }
 
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
+
   showMessageFormIfViewingSelf();
   
-  fetchAboutMeMarkdown();
+  fetchAboutMe();
+
+  showMessageFormIfLoggedIn();
   fetchMessages();
   //fetchAboutMe();
   
