@@ -111,9 +111,9 @@ public class Datastore {
     }
     return messages;
   }
-  /* stores user information */
+  /** Stores the User in Datastore. */
   public void storeUser(User user) {
- 	  Entity userEntity = new Entity("User", user.getEmail());
+    Entity userEntity = new Entity("User", user.getEmail());
     userEntity.setProperty("email", user.getEmail());
     userEntity.setProperty("aboutMe", user.getAboutMe());
     datastore.put(userEntity);
