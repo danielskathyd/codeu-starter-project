@@ -101,12 +101,7 @@ function buildMessageDiv(message) {
    var text = message.text,
     converter = new showdown.Converter(),
     html = converter.makeHtml(text);
-  
-  
     bodyDiv.innerHTML = html;
-
-  
-
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
   messageDiv.appendChild(headerDiv);
@@ -126,19 +121,11 @@ function fetchAboutMe(){
     if(aboutMe == ''){
       aboutMe = 'This user has not entered any information about me yet.';
     }
-    
-   
-    
-    //aboutMeContainer.innerHTML = aboutMe;
     var text = aboutMe,
     converter = new showdown.Converter(),
     html = converter.makeHtml(text);
-  
     console.log(text);
-  
     aboutMeContainer.innerHTML = html;
-    
-
   });
 }
 
@@ -146,11 +133,8 @@ function fetchAboutMe(){
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
-
   showMessageFormIfViewingSelf();
-  
   fetchAboutMe();
-
   showMessageFormIfLoggedIn();
   fetchMessages();
   //fetchAboutMe();
