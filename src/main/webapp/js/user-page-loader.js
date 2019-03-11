@@ -32,20 +32,6 @@ function setPageTitle() {
 /**
  * Shows the message form if the user is logged in and viewing their own page.
  */
-function showMessageFormIfViewingSelf() {
-  fetch('/login-status')
-      .then((response) => {
-        return response.json();
-      })
-      .then((loginStatus) => {
-        if (loginStatus.isLoggedIn &&
-            loginStatus.username == parameterUsername) {
-          const messageForm = document.getElementById('message-form');
-          messageForm.classList.remove('hidden');
-        }
-      });
-      document.getElementById('about-me-form').classList.remove('hidden');
-}
 
 function showMessageFormIfLoggedIn() {
     fetch('/login-status')
@@ -54,6 +40,10 @@ function showMessageFormIfLoggedIn() {
 })
 .then((loginStatus) => {
         if (loginStatus.isLoggedIn) {
+        if (loginStatus.username == parameterUsername){
+            const aboutMeElement = document.getElementById('about-me-form');
+            aboutMeElement.classList.remove('hidden');
+        }
         const messageForm = document.getElementById('message-form');
         messageForm.action = '/messages?recipient=' + parameterUsername;
         messageForm.classList.remove('hidden');
@@ -102,6 +92,10 @@ function buildMessageDiv(message) {
   messageDiv.appendChild(headerDiv);
   messageDiv.appendChild(bodyDiv);
 
+  // headerDiv.appendChild(document.createTextNode(
+  //     message.user + ' - ' +
+  //     new Date(message.timestamp) +
+  //     ' [' + message.sentimentScore + ']'));
   return messageDiv;
 }
 
@@ -117,7 +111,8 @@ function fetchAboutMe(){
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
-  setPageTitle();
-  showMessageFormIfLoggedIn();
-  fetchMessages();
+    setPageTitle();
+    showMessageFormIfLoggedIn();
+    fetchMessages();
+    fetchAboutMe();
 }
