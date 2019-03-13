@@ -18,6 +18,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
+
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
 if (!parameterUsername) {
   window.location.replace('/');
@@ -32,21 +33,21 @@ function setPageTitle() {
 /**
  * Shows the message form if the user is logged in and viewing their own page.
  */
-
 function showMessageFormIfLoggedIn() {
     fetch('/login-status')
         .then((response) => {
         return response.json();
 })
 .then((loginStatus) => {
-        if (loginStatus.isLoggedIn) {
-        if (loginStatus.username == parameterUsername){
-            const aboutMeElement = document.getElementById('about-me-form');
-            aboutMeElement.classList.remove('hidden');
-        }
+        if (loginStatus.isLoggedIn){
         const messageForm = document.getElementById('message-form');
+        const aboutMeForm = document.getElementById('about-me-form');
         messageForm.action = '/messages?recipient=' + parameterUsername;
         messageForm.classList.remove('hidden');
+    }
+    if (loginStatus.username == parameterUsername) {
+        const aboutMeForm = document.getElementById('about-me-form');
+        aboutMeForm.classList.remove('hidden');
     }
 });
 }
@@ -78,25 +79,21 @@ function fetchMessages() {
  * @return {Element}
  */
 function buildMessageDiv(message) {
-  const headerDiv = document.createElement('div');
-  headerDiv.classList.add('message-header');
-  headerDiv.appendChild(document.createTextNode(
-      message.user + ' - ' + new Date(message.timestamp)));
+    const headerDiv = document.createElement('div');
+    headerDiv.classList.add('message-header');
+    headerDiv.appendChild(document.createTextNode(
+        message.user + ' - ' + new Date(message.timestamp)));
 
-  const bodyDiv = document.createElement('div');
-  bodyDiv.classList.add('message-body');
-  bodyDiv.innerHTML = message.text;
+    const bodyDiv = document.createElement('div');
+    bodyDiv.classList.add('message-body');
+    bodyDiv.innerHTML = message.text;
 
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message-div');
-  messageDiv.appendChild(headerDiv);
-  messageDiv.appendChild(bodyDiv);
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message-div');
+    messageDiv.appendChild(headerDiv);
+    messageDiv.appendChild(bodyDiv);
 
-  headerDiv.appendChild(document.createTextNode(
-      message.user + ' - ' +
-      new Date(message.timestamp) +
-      ' [' + message.sentimentScore + ']'));
-  return messageDiv;
+    return messageDiv;
 }
 
 function fetchAboutMe(){

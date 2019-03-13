@@ -51,6 +51,18 @@ public class MessageServlet extends HttpServlet {
    * Responds with a JSON representation of {@link Message} data for a specific user. Responds with
    * an empty array if the user is not provided.
    */
+
+  private float getSentimentScore(String text) throws IOException {
+    Document doc = Document.newBuilder()
+            .setContent(text).setType(Type.PLAIN_TEXT).build();
+
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    languageService.close();
+
+    return sentiment.getScore();
+  }
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -80,24 +92,13 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    String text = Jsoup.clean(request.getParameter("text"), Whitelist.relaxed());
     String recipient = request.getParameter("recipient");
     float sentimentScore = this.getSentimentScore(text);
-//
-    Message message = new Message(user, text, recipient,sentimentScore);
+
+    Message message = new Message(user, text, recipient, sentimentScore);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + recipient);
-  }
-
-  private float getSentimentScore(String text) throws IOException {
-    Document doc = Document.newBuilder()
-            .setContent(text).setType(Type.PLAIN_TEXT).build();
-
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    languageService.close();
-
-    return sentiment.getScore();
   }
 }
