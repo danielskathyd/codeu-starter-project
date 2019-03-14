@@ -64,8 +64,9 @@ public class Datastore {
     Query query;
     PreparedQuery results;
 
+    // return all messages in chronological if recipient is not specified
     if (recipient == null) {
-      query = new Query("Message");
+      query = new Query("Message").addSort("timestamp", SortDirection.ASCENDING);
       results = datastore.prepare(query);
     }
     else {
