@@ -2,22 +2,23 @@ package com.google.codeu.servlets;
 
 import java.io.IOException;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import java.util.List;
+import com.google.gson.Gson;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Handles fetching chart data.
  */
 @WebServlet("/messagechart")
-public class ChartServlet extends HttpServlet{
+public class ChartServlet extends HttpServlet {
 
   private Datastore datastore;
 
