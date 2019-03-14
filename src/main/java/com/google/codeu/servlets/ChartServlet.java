@@ -1,10 +1,10 @@
 package com.google.codeu.servlets;
 
+import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.codeu.data.Datastore;
-import com.google.codeu.data.Message;
 
 import java.io.IOException;
 
