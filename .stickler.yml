@@ -2,7 +2,7 @@ linters:
   checkstyle:
     config: ./checkstyle.xml
   eslint:
-      config: './.eslintrc'
+      config: './.eslintrc.js'
   csslint: {  }
 files:
   ignore:
