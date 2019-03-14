@@ -68,11 +68,11 @@ public class Datastore {
     if (recipient == null) {
       query = new Query("Message").addSort("timestamp", SortDirection.ASCENDING);
       results = datastore.prepare(query);
-    }
-    else {
+    } else {
       query =
                 new Query("Message")
-                        .setFilter(new Query.FilterPredicate("recipient", FilterOperator.EQUAL, recipient))
+                        .setFilter(new Query.FilterPredicate("recipient",
+                        FilterOperator.EQUAL, recipient))
                         .addSort("timestamp", SortDirection.DESCENDING);
       results = datastore.prepare(query);
     }
