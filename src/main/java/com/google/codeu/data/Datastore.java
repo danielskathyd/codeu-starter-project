@@ -57,15 +57,24 @@ public class Datastore {
   /**
    * Gets messages posted by a specific user.
    *
-   * @return a list of messages posted by the user, or empty list if user has never posted. 
+   * @return a list of messages posted by the user, or empty list if user has never posted.
    */
   public List<Message> getMessages(String recipient) {
     List<Message> messages = new ArrayList<>();
-    Query query =
-              new Query("Message")
-                      .setFilter(new Query.FilterPredicate("recipient", FilterOperator.EQUAL, recipient))
-                      .addSort("timestamp", SortDirection.DESCENDING);
-      PreparedQuery results = datastore.prepare(query);
+    Query query;
+    PreparedQuery results;
+
+    if (recipient == null) {
+      query = new Query("Message");
+      results = datastore.prepare(query);
+    }
+    else {
+      query =
+                new Query("Message")
+                        .setFilter(new Query.FilterPredicate("recipient", FilterOperator.EQUAL, recipient))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+      results = datastore.prepare(query);
+    }
 
       for (Entity entity : results.asIterable()) {
           try {
@@ -111,7 +120,7 @@ public class Datastore {
     }
     return messages;
   }
-  
+
   /** Stores the User in Datastore. */
 
   public void storeUser(User user) {
