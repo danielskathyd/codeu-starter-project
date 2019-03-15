@@ -1,0 +1,26 @@
+{
+  "name": "codeu-starter-project.json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "showdown": "^1.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-google": "^0.12.0"
+  },
+  "scripts": {
+    "test": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielskathyd/codeu-starter-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielskathyd/codeu-starter-project/issues"
+  },
+  "homepage": "https://github.com/danielskathyd/codeu-starter-project#readme"
+}
