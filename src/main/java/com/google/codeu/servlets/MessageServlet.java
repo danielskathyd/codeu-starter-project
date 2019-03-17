@@ -35,6 +35,11 @@ import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
 import java.io.IOException;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.Translate.TranslateOption;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
@@ -51,6 +56,19 @@ public class MessageServlet extends HttpServlet {
    * Responds with a JSON representation of {@link Message} data for a specific user. Responds with
    * an empty array if the user is not provided.
    */
+
+  private void translateMessages(List<Message> messages, String targetLanguageCode) {
+    Translate translate = TranslateOptions.getDefaultInstance().getService();
+
+    for(Message message : messages) {
+      String originalText = message.getText();
+
+      Translation translation =
+              translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
+      String translatedText = translation.getTranslatedText();
+      message.setText(translatedText);
+    }
+  }
 
   private float getSentimentScore(String text) throws IOException {
     Document doc = Document.newBuilder()
@@ -70,13 +88,20 @@ public class MessageServlet extends HttpServlet {
 
     if (user == null || user.equals("")) {
       response.getWriter().println("[]");
-      return;
+    return;
     }
 
     List<Message> messages = datastore.getMessages(user);
+    String targetLanguageCode = request.getParameter("language");
+
+    if(targetLanguageCode != null) {
+      translateMessages(messages, targetLanguageCode);
+    }
+    else
+      response.getWriter().println("EMPTY" );
+
     Gson gson = new Gson();
     String json = gson.toJson(messages);
-
     response.getWriter().println(json);
   }
 

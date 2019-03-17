@@ -57,6 +57,8 @@ public class Message {
     return text;
   }
 
+  public void setText(String beforeTranslatedText){ this.text = beforeTranslatedText;}
+
   public long getTimestamp() {
     return timestamp;
   }
