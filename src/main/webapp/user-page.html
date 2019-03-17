@@ -23,6 +23,7 @@ limitations under the License.
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
   </head>
   
   
@@ -36,7 +37,10 @@ limitations under the License.
     <div id = "about-me-container">Loading...</div>
     	<div id="about-me-form" class="hidden">
     	<form action="/about" method = "POST">
-    		<textarea name="about-me" placeholder = "about me" rows=4 required></textarea>
+        <textarea name="about-me" placeholder = "about me" rows=4 required></textarea>
+        <script>
+            ClassicEditor.create( document.getElementsByName('about-me'));
+        </script>
     		<br/>
     		<input type="submit" value = "Submit">
     	</form>
@@ -45,10 +49,16 @@ limitations under the License.
     <form id="message-form" action="/messages" method="POST" class="hidden">
       Enter a new message:
       <br/>
+      
       <textarea name="text" id="message-input"></textarea>
+      <script>
+          const config = {removePlugins: [ 'ImageUpload' ]};
+          ClassicEditor.create( document.getElementById('message-input'), config );
+      </script>
       <br/>
       <input type="submit" value="Submit">
     </form>
+    
     <hr/>
     
     
@@ -56,5 +66,9 @@ limitations under the License.
     <div id="message-container">Loading...</div>
 
   </body>
+
+  
+
+ 
   
 </html>

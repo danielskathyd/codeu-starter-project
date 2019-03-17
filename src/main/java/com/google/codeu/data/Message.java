@@ -36,6 +36,7 @@ public class Message {
   }
 
   public Message(UUID id, String user, String text, long timestamp, String recipient) {
+    
     this.id = id;
     this.user = user;
     this.text = text;

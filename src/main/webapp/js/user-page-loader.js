@@ -77,10 +77,12 @@ function fetchMessages() {
           messagesContainer.innerHTML = '';
         }
         messages.forEach((message) => {
+          
           const messageDiv = buildMessageDiv(message);
           messagesContainer.appendChild(messageDiv);
         });
       });
+      
 }
 
 /**
@@ -97,11 +99,13 @@ function buildMessageDiv(message) {
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
-
+  console.log(message.text);
+    /*
    var text = message.text,
     converter = new showdown.Converter(),
     html = converter.makeHtml(text);
     bodyDiv.innerHTML = html;
+    */
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
   messageDiv.appendChild(headerDiv);
@@ -132,11 +136,14 @@ function fetchAboutMe(){
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
+  
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchAboutMe();
   showMessageFormIfLoggedIn();
   fetchMessages();
+  
+  
   //fetchAboutMe();
   
 }
