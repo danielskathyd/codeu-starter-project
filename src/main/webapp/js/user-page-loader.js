@@ -18,16 +18,15 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
-
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
 if (!parameterUsername) {
-  window.location.replace('/');
+    window.location.replace('/');
 }
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
-  document.title = parameterUsername + ' - User Page';
+    document.getElementById('page-title').innerText = parameterUsername;
+    document.title = parameterUsername + ' - User Page';
 }
 
 /**
@@ -59,22 +58,22 @@ function fetchMessages() {
     if(parameterLanguage) {
         url += '&language=' + parameterLanguage;
     }
-  fetch(url)
-      .then((response) => {
+    fetch(url)
+        .then((response) => {
         return response.json();
-      })
-      .then((messages) => {
+})
+.then((messages) => {
         const messagesContainer = document.getElementById('message-container');
-        if (messages.length == 0) {
-          messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-        } else {
-          messagesContainer.innerHTML = '';
-        }
-        messages.forEach((message) => {
-          const messageDiv = buildMessageDiv(message);
-          messagesContainer.appendChild(messageDiv);
-        });
-      });
+    if (messages.length == 0) {
+        messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
+    } else {
+        messagesContainer.innerHTML = '';
+    }
+    messages.forEach((message) => {
+        const messageDiv = buildMessageDiv(message);
+    messagesContainer.appendChild(messageDiv);
+});
+});
 }
 
 /**
@@ -94,63 +93,38 @@ function buildMessageDiv(message) {
     bodyDiv.classList.add('message-body');
     bodyDiv.innerHTML = message.text;
 
-<<<<<<< HEAD
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message-div');
     messageDiv.appendChild(headerDiv);
     messageDiv.appendChild(bodyDiv);
-=======
-   var text = message.text,
-    converter = new showdown.Converter(),
-    html = converter.makeHtml(text);
-    bodyDiv.innerHTML = html;
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message-div');
-  messageDiv.appendChild(headerDiv);
-  messageDiv.appendChild(bodyDiv);
->>>>>>> 38373a342903bbd5f541cd1f9bbb32764a91e7e4
 
     return messageDiv;
 }
 
 function fetchAboutMe(){
-  
-  const url = '/about?user=' + parameterUsername;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
+
+    const url = '/about?user=' + parameterUsername;
+    fetch(url).then((response) => {
+        return response.text();
+}).then((aboutMe) => {
+        const aboutMeContainer = document.getElementById('about-me-container');
     console.log(aboutMe);
     if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information about me yet.';
+        aboutMe = 'This user has not entered any information about me yet.';
     }
-<<<<<<< HEAD
     aboutMeContainer.innerHTML = aboutMe;
-=======
     var text = aboutMe,
-    converter = new showdown.Converter(),
-    html = converter.makeHtml(text);
+        converter = new showdown.Converter(),
+        html = converter.makeHtml(text);
     console.log(text);
     aboutMeContainer.innerHTML = html;
->>>>>>> 38373a342903bbd5f541cd1f9bbb32764a91e7e4
-  });
+});
 }
-
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
-<<<<<<< HEAD
     setPageTitle();
+    fetchAboutMe();
     showMessageFormIfLoggedIn();
     fetchMessages();
-    fetchAboutMe();
-=======
-  setPageTitle();
-  showMessageFormIfViewingSelf();
-  fetchAboutMe();
-  showMessageFormIfLoggedIn();
-  fetchMessages();
-  //fetchAboutMe();
-  
->>>>>>> 38373a342903bbd5f541cd1f9bbb32764a91e7e4
 }

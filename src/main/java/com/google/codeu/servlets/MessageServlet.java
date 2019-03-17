@@ -72,7 +72,7 @@ public class MessageServlet extends HttpServlet {
 
   private float getSentimentScore(String text) throws IOException {
     Document doc = Document.newBuilder()
-        .setContent(text).setType(Type.PLAIN_TEXT).build();
+            .setContent(text).setType(Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
 
     Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
@@ -88,17 +88,17 @@ public class MessageServlet extends HttpServlet {
 
     if (user == null || user.equals("")) {
       response.getWriter().println("[]");
-    return;
+      return;
     }
 
     List<Message> messages = datastore.getMessages(user);
     String targetLanguageCode = request.getParameter("language");
 
-    if(targetLanguageCode != null) {
-      translateMessages(messages, targetLanguageCode);
-    }
-    else
-      response.getWriter().println("EMPTY" );
+//    if(targetLanguageCode != null) {
+//      translateMessages(messages, targetLanguageCode);
+//    }
+//    else
+//      response.getWriter().println("EMPTY" );
 
     Gson gson = new Gson();
     String json = gson.toJson(messages);
