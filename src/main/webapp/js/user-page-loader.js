@@ -17,6 +17,9 @@
 // Get ?user=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
+const maxMessages = 5;
+//HashMap to map supported languages and their language codes
+var supportedLanguages = new Map();
 
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
 if (!parameterUsername) {
@@ -27,6 +30,17 @@ if (!parameterUsername) {
 function setPageTitle() {
     document.getElementById('page-title').innerText = parameterUsername;
     document.title = parameterUsername + ' - User Page';
+}
+
+/**
+ * Set supported languages in hashmap
+ */
+function fillMap() {
+    supportedLanguages.set('en', 'English');
+    supportedLanguages.set('zh', 'Chinese');
+    supportedLanguages.set('hi', 'Hindi');
+    supportedLanguages.set('es', 'Spanish');
+    supportedLanguages.set('ar', 'Arabic');
 }
 
 /**
@@ -55,9 +69,12 @@ function showMessageFormIfLoggedIn() {
 function fetchMessages() {
     const parameterLanguage = urlParams.get('language');
     let url = '/messages?user=' + parameterUsername;
-    if(parameterLanguage) {
+
+    if (parameterLanguage &&
+        supportedLanguages.has(parameterLanguage)) {
         url += '&language=' + parameterLanguage;
     }
+
     fetch(url)
         .then((response) => {
         return response.json();
@@ -69,12 +86,21 @@ function fetchMessages() {
     } else {
         messagesContainer.innerHTML = '';
     }
+    var count = 0;
     messages.forEach((message) => {
         const messageDiv = buildMessageDiv(message);
+
+    if (count !== maxMessages) {
+        count++;
+    } else {
+        messageDiv.hidden = true;
+    }
     messagesContainer.appendChild(messageDiv);
 });
+
 });
 }
+
 
 /**
  * Builds an element that displays the message.
@@ -85,7 +111,8 @@ function buildMessageDiv(message) {
     const headerDiv = document.createElement('div');
     headerDiv.classList.add('message-header');
     headerDiv.appendChild(document.createTextNode(
-        message.user + ' - ' +
+        'From: ' + message.user +
+        ' To: ' + message.recipient +
         new Date(message.timestamp) +
         ' [' + message.sentimentalScore + ']'));
 
@@ -102,7 +129,6 @@ function buildMessageDiv(message) {
 }
 
 function fetchAboutMe(){
-
     const url = '/about?user=' + parameterUsername;
     fetch(url).then((response) => {
         return response.text();
@@ -121,10 +147,26 @@ function fetchAboutMe(){
 });
 }
 
+/**
+ Creates links to make requests for translating messages
+ */
+function buildLanguageLinks() {
+    const userPageUrl = '/user-page.html?user=' + parameterUsername;
+    const languagesListElement  = document.getElementById('languages');
+
+    //Iterate through hash map
+    supportedLanguages.forEach(function(value, key) {
+        languagesListElement.appendChild(createListItem(createLink(
+            userPageUrl + '&language=' + key, value)));
+    });
+}
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
     setPageTitle();
-    fetchAboutMe();
-    showMessageFormIfLoggedIn();
+    showMessageFormIfLoggedIn()
+    fillMap();
     fetchMessages();
+    fetchAboutMe();
+    buildLanguageLinks();
 }
