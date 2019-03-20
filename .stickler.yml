@@ -2,6 +2,8 @@ linters:
   checkstyle:
     config: ./checkstyle.xml
   csslint: {  }
+  eslint:
+        config: ./.eslintrc.json
 files:
   ignore:
     - 'bower_components/*'
