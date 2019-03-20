@@ -98,6 +98,10 @@ function buildMessageDiv(message) {
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
 
+   var text = message.text,
+    converter = new showdown.Converter(),
+    html = converter.makeHtml(text);
+    bodyDiv.innerHTML = html;
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
   messageDiv.appendChild(headerDiv);
@@ -107,24 +111,32 @@ function buildMessageDiv(message) {
 }
 
 function fetchAboutMe(){
+  
   const url = '/about?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.text();
   }).then((aboutMe) => {
     const aboutMeContainer = document.getElementById('about-me-container');
+    console.log(aboutMe);
     if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
+      aboutMe = 'This user has not entered any information about me yet.';
     }
-    
-    aboutMeContainer.innerHTML = aboutMe;
-
+    var text = aboutMe,
+    converter = new showdown.Converter(),
+    html = converter.makeHtml(text);
+    console.log(text);
+    aboutMeContainer.innerHTML = html;
   });
 }
+
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
+  showMessageFormIfViewingSelf();
+  fetchAboutMe();
   showMessageFormIfLoggedIn();
   fetchMessages();
-  fetchAboutMe();
+  //fetchAboutMe();
+  
 }

@@ -4,6 +4,8 @@ linters:
   eslint:
       config: './.eslintrc.js'
   csslint: {  }
+  eslint:
+        config: ./.eslintrc.json
 files:
   ignore:
     - 'bower_components/*'
