@@ -1,62 +1,129 @@
-<!--
-Copyright 2019 Google Inc.
+/*
+ * Copyright 2019 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+package com.google.codeu.servlets;
 
-    http://www.apache.org/licenses/LICENSE-2.0
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Message;
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Document.Type;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
+import java.io.IOException;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.Translate.TranslateOption;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>User Page</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/user-page.css">
-    <script src="/js/user-page-loader.js"></script>
-    <script src="/js/navigation-loader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
-  </head>
-  
-  
-  <body onload="buildUI();">
-    <nav>
-      <ul id="navigation">
-        <li><a href="/">Home</a></li>
-      </ul>
-      <ul id="languages"></ul>
-    </nav>
-    <h1 id="page-title">User Page</h1>
-    <div id = "about-me-container">Loading...</div>
-    	<div id="about-me-form" class="hidden">
-    	<form action="/about" method = "POST">
-    		<textarea name="about-me" placeholder = "about me" rows=4 required></textarea>
-    		<br/>
-    		<input type="submit" value = "Submit">
-    	</form>
-    </div>
 
-    <form id="message-form" action="/messages" method="POST" class="hidden">
-      Enter a new message:
-      <br/>
-      <textarea name="text" id="message-input"></textarea>
-      <br/>
-      <input type="submit" value="Submit">
-    </form>
-    <hr/>
-    
-    
 
-    <div id="message-container">Loading...</div>
+/** Handles fetching and saving {@link Message} instances. */
+@WebServlet("/messages")
+public class MessageServlet extends HttpServlet {
 
-  </body>
-  
-</html>
+    private Datastore datastore;
+
+    @Override
+    public void init() {
+        datastore = new Datastore();
+    }
+
+    /**
+     * Responds with a JSON representation of {@link Message} data for a specific user. Responds with
+     * an empty array if the user is not provided.
+     */
+
+    private void translateMessages(List<Message> messages, String targetLanguageCode) {
+        Translate translate = TranslateOptions.getDefaultInstance().getService();
+
+        for(Message message : messages) {
+            String originalText = message.getText();
+
+            Translation translation =
+                    translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
+            String translatedText = translation.getTranslatedText();
+            message.setText(translatedText);
+        }
+    }
+
+    private float getSentimentScore(String text) throws IOException {
+        Document doc = Document.newBuilder()
+                .setContent(text).setType(Type.PLAIN_TEXT).build();
+        LanguageServiceClient languageService = LanguageServiceClient.create();
+
+        Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+        languageService.close();
+        return sentiment.getScore();
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/json");
+        String user = request.getParameter("user");
+
+        if (user == null || user.equals("")) {
+            response.getWriter().println("[]");
+            return;
+        }
+
+        List<Message> messages = datastore.getMessages(user);
+        String targetLanguageCode = request.getParameter("language");
+
+        if(targetLanguageCode != null) {
+            translateMessages(messages, targetLanguageCode);
+        }
+        else
+            response.getWriter().println("EMPTY" );
+
+        Gson gson = new Gson();
+        String json = gson.toJson(messages);
+        response.getWriter().println(json);
+    }
+
+    /** Stores a new {@link Message}. */
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        UserService userService = UserServiceFactory.getUserService();
+        if (!userService.isUserLoggedIn()) {
+            response.sendRedirect("/index.html");
+            return;
+        }
+
+        String user = userService.getCurrentUser().getEmail();
+        String text = Jsoup.clean(request.getParameter("text"), Whitelist.relaxed());
+        String recipient = request.getParameter("recipient");
+        float sentimentScore = this.getSentimentScore(text);
+
+        Message message = new Message(user, text, recipient, sentimentScore);
+        datastore.storeMessage(message);
+
+        response.sendRedirect("/user-page.html?user=" + recipient);
+    }
+}
