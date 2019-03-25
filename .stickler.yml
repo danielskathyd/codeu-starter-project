@@ -1,12 +1,12 @@
 linters:
   checkstyle:
     config: ./checkstyle.xml
-  eslint:
-      config: './.eslintrc.js'
   csslint: {  }
   eslint:
-        config: ./.eslintrc.json
+    config: ./.eslintrc.json
+
 files:
   ignore:
     - 'bower_components/*'
     - 'node_modules/*'
+ 
