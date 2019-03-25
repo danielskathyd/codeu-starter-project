@@ -78,12 +78,6 @@ public class Datastore {
       results = datastore.prepare(query);
     }
 
-      for (Entity entity : results.asIterable()) {
-          try {
-              String idString = entity.getKey().getName();
-              UUID id = UUID.fromString(idString);
-              String user = (String) entity.getProperty("user");
-
     for (Entity entity : results.asIterable()) {
       try {
         String idString = entity.getKey().getName();
@@ -93,7 +87,7 @@ public class Datastore {
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
         float sentimentScore = entity.getProperty("sentimentscore") ==
-                null? (float) 0.0 : ((Double) entity.getProperty("sentimentscore")).floatValue();
+          null? (float) 0.0 : ((Double) entity.getProperty("sentimentscore")).floatValue();
         Message message = new Message(id, user, text, timestamp, recipient, sentimentScore);
         messages.add(message);
       } catch (Exception e) {
@@ -104,6 +98,8 @@ public class Datastore {
     }
     return messages;
   }
+
+
   public List<Message> getAllMessages(){
     List<Message> messages = new ArrayList<>();
     Query query = new Query("Message")
