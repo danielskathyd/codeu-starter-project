@@ -118,7 +118,17 @@ public class Datastore {
     Entity userEntity = new Entity("User", user.getEmail());
     userEntity.setProperty("email", user.getEmail());
     userEntity.setProperty("aboutMe", user.getAboutMe());
+    userEntity.setProperty("name", user.getName());
+    userEntity.setProperty("city", user.getCity());
+    userEntity.setProperty("interests", user.getInterests());
     datastore.put(userEntity);
+  }
+
+  public void updateUser(String email, String name, String city, String interests){
+    User u = getUser(email);
+    u.setName(name);
+    u.setCity(city);
+    u.setInterests(interests);
   }
 
   /**
@@ -133,9 +143,24 @@ public class Datastore {
     if (userEntity == null) {
       return null;
     }
-    String aboutMe = (String) userEntity.getProperty("aboutMe");
-    User user = new User(email, aboutMe);
+    //String aboutMe = (String) userEntity.getProperty("aboutMe");
+    String name = "";
+    String city = "";
+    String interests = "";
+    if(userEntity.getProperty("name") != null){
+       name = (String) userEntity.getProperty("name");
+    }
+    if(userEntity.getProperty("city") != null){
+      city = (String) userEntity.getProperty("city");
+    }
+    if(userEntity.getProperty("interests") != null){
+      interests =  (String) userEntity.getProperty("interests");
+    }
+
+    User user = new User(email,name, city, interests);
     return user;
   }
+
+
 
 }
