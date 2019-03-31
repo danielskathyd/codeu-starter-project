@@ -33,7 +33,7 @@ function fetchProfile(){
   
   const url = '/profile?user=' + parameterUsername;
   fetch(url).then((response) => {
-    return response.text();
+    return response.json();
   }).then((aboutMe) => {
     console.log("this is the aboutMe")
     console.log(aboutMe)
@@ -42,13 +42,10 @@ function fetchProfile(){
     const interestsContainer = document.getElementById('interests');
     
     console.log(nameContainer.value);
-    var text = aboutMe,
-    converter = new showdown.Converter(),
-    html = converter.makeHtml(text);
-    console.log(text);
-    nameContainer.value = aboutMe;
-    cityContainer.value = aboutMe;
-    interestsContainer.value = aboutMe;
+   
+    nameContainer.value = aboutMe[0]; 
+    cityContainer.value = aboutMe[1];
+    interestsContainer.value = aboutMe[2];
 
   });
 }

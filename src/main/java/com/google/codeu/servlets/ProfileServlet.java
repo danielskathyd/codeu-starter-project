@@ -15,6 +15,10 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.User;
 
+import com.google.gson.Gson;
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * Handles fetching and saving user data.
  */
@@ -35,22 +39,34 @@ public class ProfileServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 
-    response.setContentType("text/html");
-
-    String user = request.getParameter("user");
-
-    if(user == null || user.equals("")) {
-      // Request is invalid, return empty response
-      return;
-    }
+        response.setContentType("application/json");
+        String user = request.getParameter("user");
+        
+        if (user == null || user.equals("")) {
+          response.getWriter().println("[]");
+          return;
+        }
+    
 
     User userData = datastore.getUser(user);
 
     if(userData == null || userData.getInterests() == null) {
-      return;
+        return;
     }
+    
+    List<String> s = new ArrayList<String>();
+    userData.getCity();
+    s.add(userData.getName());
+    s.add(userData.getCity());
+    s.add(userData.getInterests());
+    
 
-    response.getOutputStream().println(userData.getName());
+   
+
+    Gson gson = new Gson();
+    String json = gson.toJson(s);
+    System.out.println(json);
+    response.getWriter().println(json);;
   }
 
   @Override
@@ -65,22 +81,15 @@ public class ProfileServlet extends HttpServlet {
 
     String userEmail = userService.getCurrentUser().getEmail();
     User u = datastore.getUser(userEmail);
-    if(u == null){
-        String name = Jsoup.clean(request.getParameter("name"), Whitelist.simpleText());
+    
+    String name = Jsoup.clean(request.getParameter("name"), Whitelist.simpleText());
 
-        String city= Jsoup.clean(request.getParameter("city"), Whitelist.simpleText());
-        String i = request.getParameter("interests");
+    String city= Jsoup.clean(request.getParameter("city"), Whitelist.simpleText());
+    String i = request.getParameter("interests");
 
-        User user = new User(userEmail, name, city,i);
-        datastore.storeUser(user);
-    }
-    else{
-        String name = Jsoup.clean(request.getParameter("name"), Whitelist.simpleText());
-
-        String city= Jsoup.clean(request.getParameter("city"), Whitelist.simpleText());
-        String i = request.getParameter("interests");
-        datastore.updateUser(userEmail, name, city, i);
-    }
+    User user = new User(userEmail, name, city,i);
+    datastore.storeUser(user);
+   
 
     response.sendRedirect("/profile.html?user=" + userEmail);
   }
