@@ -17,16 +17,23 @@
 /* Prevent the page from becoming too wide. */
 body {
   max-width: 600px;
+  margin: 0px;
 }
 
 /* Remove bullet points from navigation bar. */
 nav ul {
   list-style-type: none;
-  padding-left: 0;
+  padding: 20px;
+  background: rgb(238,31,31);
+  background: linear-gradient(180deg, rgba(238,31,31,1) 0%, rgba(202,51,105,1) 100%);
 }
 
 /* Keep navigation menu on one line. */
 nav li {
   display: inline-block;
-  margin-right: 10px
+  margin-right: 10px;
+}
+
+nav a {
+  color: white;
 }
