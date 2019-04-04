@@ -67,22 +67,6 @@ function showMessageFormIfLoggedIn() {
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
-<<<<<<< HEAD
-  const url = '/messages?user=' + parameterUsername;
-  fetch(url).then((response) => {
-        return response.json();
-      })
-      .then((messages) => {
-        const messagesContainer = document.getElementById('message-container');
-        if (messages.length == 0) {
-          messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-        } else {
-          messagesContainer.innerHTML = '';
-        }
-        messages.forEach((message) => {
-          const messageDiv = buildMessageDiv(message);
-          messagesContainer.appendChild(messageDiv);
-=======
     const parameterLanguage = urlParams.get('language');
     let url = '/messages?user=' + parameterUsername;
 
@@ -114,7 +98,6 @@ function fetchMessages() {
                 messagesContainer.appendChild(messageDiv);
             });
 
->>>>>>> ad254ee34974623f69ed6d8af984d277a3512d17
         });
 }
 
@@ -184,5 +167,5 @@ function buildUI() {
     fillMap();
     fetchMessages();
     fetchAboutMe();
-    buildLanguageLinks();
+    //buildLanguageLinks();
 }
