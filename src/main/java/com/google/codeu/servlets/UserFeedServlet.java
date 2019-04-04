@@ -17,28 +17,28 @@ import com.google.gson.Gson;
  * Handles fetching all users for the public feed.
  */
 @WebServlet("/users")
-public class UserFeedServlet extends HttpServlet{
+public class UserFeedServlet extends HttpServlet {
 
-    private Datastore datastore;
+  private Datastore datastore;
 
-    @Override
-    public void init() {
-        datastore = new Datastore();
-    }
+  @Override
+  public void init() {
+    datastore = new Datastore();
+  }
 
-    /**
-     * Responds with a JSON representation of data for all users.
-     */
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+  /**
+  * Responds with a JSON representation of data for all users.
+  */
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws IOException {
 
-        response.setContentType("application/json");
+    response.setContentType("application/json");
 
-        List<User> users = datastore.getAllUsers();
-        Gson gson = new Gson();
-        String json = gson.toJson(users);
+    List<User> users = datastore.getAllUsers();
+    Gson gson = new Gson();
+    String json = gson.toJson(users);
 
-        response.getOutputStream().println(json);
-    }
+    response.getOutputStream().println(json);
+  }
 }
