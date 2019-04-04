@@ -58,7 +58,7 @@ public class Datastore {
   /**
    * Gets messages posted by a specific user.
    *
-   * @return a list of messages posted by the user, or empty list if user has never posted. 
+   * @return a list of messages posted by the user, or empty list if user has never posted.
    */
   public List<Message> getMessages(String recipient) {
     List<Message> messages = new ArrayList<>();
@@ -165,6 +165,28 @@ public class Datastore {
     return user;
   }
 
+  public List<User> getAllUsers(){
+    List<User> users = new ArrayList<>();
+    Query query = new Query("User");
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      try {
+        String name = (String) entity.getProperty("name");
+        String email = (String) entity.getProperty("email");
+        String city = (String) entity.getProperty("city");
+        String interests = (String) entity.getProperty("interests");
+
+        User user = new User(email, name, city, interests);
+        users.add(user);
+      } catch (Exception e) {
+        System.err.println("Error finding user.");
+        System.err.println(entity.toString());
+        e.printStackTrace();
+      }
+    }
+    return users;
+  }
 
 
 }
