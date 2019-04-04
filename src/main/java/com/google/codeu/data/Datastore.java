@@ -165,7 +165,7 @@ public class Datastore {
     return user;
   }
 
-  public List<User> getAllUsers(){
+  public List<User> getAllUsers() {
     List<User> users = new ArrayList<>();
     Query query = new Query("User");
     PreparedQuery results = datastore.prepare(query);
