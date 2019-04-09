@@ -208,7 +208,10 @@ public class Datastore {
     return user;
   }
 
-  public List<User> getAllUsers(){
+  /**
+   * Returns a list of all Users, including name, email, city, and interests.
+   */
+  public List<User> getAllUsers() {
     List<User> users = new ArrayList<>();
     Query query = new Query("User");
     PreparedQuery results = datastore.prepare(query);
