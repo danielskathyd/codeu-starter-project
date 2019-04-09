@@ -16,9 +16,6 @@ import com.google.gson.Gson;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
-
 /**
  * Handles fetching all users for the public feed.
  */
@@ -41,33 +38,15 @@ public class UserFeedServlet extends HttpServlet {
 
     response.setContentType("application/json");
 
-    List<User> users = datastore.getAllUsers();
+    UserService userService = UserServiceFactory.getUserService();
+    String userEmail = userService.getCurrentUser().getEmail();
+    String interest = datastore.getSearch(userEmail);
+    List<User> users = datastore.getInterestedUsers(interest);
     Gson gson = new Gson();
     String json = gson.toJson(users);
 
     response.getOutputStream().println(json);
   }
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
-
-    UserService userService = UserServiceFactory.getUserService();
-    if (!userService.isUserLoggedIn()) {
-      response.sendRedirect("/index.html");
-      return;
-    }
-
-    String userEmail = userService.getCurrentUser().getEmail();
-    User u = datastore.getUser(userEmail);
-
-
-    String search = Jsoup.clean(request.getParameter("Search"), Whitelist.simpleText());
-
-    //TODO: save search
-
-    System.out.println("SEARCH: " + search);
-
-    response.sendRedirect("/index.html?user=" + userEmail);
-  }
+  
 }

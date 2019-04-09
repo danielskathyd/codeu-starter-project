@@ -90,6 +90,7 @@ public class ProfileServlet extends HttpServlet {
     }
 
     User user = new User(userEmail, name, city,i);
+
     datastore.storeUser(user);
    
 

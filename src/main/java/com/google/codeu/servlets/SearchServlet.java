@@ -44,12 +44,10 @@ public class SearchServlet extends HttpServlet {
     }
 
     String userEmail = userService.getCurrentUser().getEmail();
-    User u = datastore.getUser(userEmail);
-
-
+  
     String search = Jsoup.clean(request.getParameter("Search"), Whitelist.simpleText());
 
-    //TODO: save search
+    datastore.storeSearch(userEmail, search);
 
     System.out.println("SEARCH: " + search);
 
