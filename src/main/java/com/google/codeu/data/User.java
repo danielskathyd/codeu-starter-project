@@ -1,11 +1,12 @@
 package com.google.codeu.data;
-
+import java.util.HashSet;
 public class User {
 	private String email;
 	private String aboutMe;
 	private String name;
 	private String city;
-	private String interests;
+	private HashSet<String> interests;
+	
 
 	
 	public User(String email, String aboutMe) {
@@ -13,10 +14,24 @@ public class User {
 		this.aboutMe = aboutMe;
 		this.name = "";
 		this.city = "";
-		this.interests = "";
+		this.interests = new HashSet<String>();
 	}
 
 	public User(String email, String name, String city, String interests) {
+		this.email = email;
+		this.name = name;
+		this.city = city;
+		this.interests = new HashSet<String>();
+		
+		String s[] = interests.split(",");
+		
+		for(String a: s){
+			System.out.println(a);
+			this.interests.add(a);
+		}
+	}
+
+	public User(String email, String name, String city, HashSet<String> interests) {
 		this.email = email;
 		this.name = name;
 		this.city = city;
@@ -44,10 +59,22 @@ public class User {
 		this.city = city;
 	}
 
-	public String getInterests(){
+	public HashSet<String> getInterests(){
 		return interests;
 	}
+	public String getInterestsString(){
+		String ans = "";
+		for(String s: interests){
+			ans += (s + ",");
+
+		}
+		ans = ans.substring(0, ans.length()-1);
+		return ans;
+	}
 	public void setInterests(String interests){
-		this.interests = interests;
+		String[] s = interests.split(",");
+		for(String a: s){
+			this.interests.add(a);
+		}
 	}
 }

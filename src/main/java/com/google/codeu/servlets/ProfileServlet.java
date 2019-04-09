@@ -49,6 +49,7 @@ public class ProfileServlet extends HttpServlet {
     
 
     User userData = datastore.getUser(user);
+    
 
     if(userData == null || userData.getInterests() == null) {
         return;
@@ -58,10 +59,8 @@ public class ProfileServlet extends HttpServlet {
     userData.getCity();
     s.add(userData.getName());
     s.add(userData.getCity());
-    s.add(userData.getInterests());
+    s.add(userData.getInterestsString());
     
-
-   
 
     Gson gson = new Gson();
     String json = gson.toJson(s);
@@ -86,6 +85,9 @@ public class ProfileServlet extends HttpServlet {
 
     String city= Jsoup.clean(request.getParameter("city"), Whitelist.simpleText());
     String i = request.getParameter("interests");
+    if( i == null){
+      i = "";
+    }
 
     User user = new User(userEmail, name, city,i);
     datastore.storeUser(user);
