@@ -19,13 +19,29 @@ body {
   margin: auto;
 }
 
+h1, p, a {
+  font-family: 'Montserrat';
+  text-decoration: none;
+}
+
+.header {
+  background: rgb(238,31,31);
+  background: linear-gradient(180deg, rgba(238,31,31,1) 0%, rgba(202,51,105,1) 100%);
+  padding: 20px 200px;
+}
+
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 20px;
+}
+
 /* Remove bullet points from navigation bar. */
 nav ul {
   list-style-type: none;
-  padding: 20px;
+  padding-bottom: 20px;
   margin: auto;
-  background: rgb(238,31,31);
-  background: linear-gradient(180deg, rgba(238,31,31,1) 0%, rgba(202,51,105,1) 100%);
+  font-size: 12px;
 }
 
 /* Keep navigation menu on one line. */
