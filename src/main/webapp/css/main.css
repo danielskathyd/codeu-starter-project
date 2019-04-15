@@ -19,7 +19,7 @@ body {
   margin: auto;
 }
 
-h1, p, a {
+h1, p, a, form {
   font-family: 'Montserrat';
   text-decoration: none;
 }
@@ -57,7 +57,7 @@ nav a {
 .feed-container {
   background-color: #FFF7F7;
   margin: 0 200px;
-  padding: 10px 30px;
+  padding: 10px 30px 100px 30px;
 }
 
 .user-header {
@@ -69,4 +69,65 @@ nav a {
   justify-content: space-around;
   margin: 10px 0;
   padding: 10px 0;
+}
+
+textarea {
+  width: 97%;
+  height: 100px;
+  border-radius: 6px;
+  resize: none;
+  padding: 10px;
+  color: gray;
+  border: none;
+  background-color: white;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 1px 2px 0 rgba(1, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: rgb(202, 51, 51);
+  box-shadow: 0 1px 2px 0 rgba(1, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 6px;
+  color: white;
+  padding: 5px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border:none;
+}
+
+.feed-container h1 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-top: 40px;
+}
+
+.message-div {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px 0 rgba(1, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+  margin: 10px 0;
+  padding: 10px 10px;
+}
+
+.message-header {
+  border-bottom: solid 2px rgba(202,51,105,1);
+  padding: 5px;
+  font-weight: 900;
+}
+
+.message-header h1 {
+  font-size: 14px;
+  margin: 0px;
+}
+
+.message-header p {
+  font-size: 10px;
+  margin: 0px;
+}
+
+.message-body {
+  margin: 10px 5px;
 }

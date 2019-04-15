@@ -19,12 +19,10 @@ function fetchMessages(){
 }
 
 function buildMessageDiv(message){
- const usernameDiv = document.createElement('div');
- usernameDiv.classList.add("left-align");
+ const usernameDiv = document.createElement('h1');
  usernameDiv.appendChild(document.createTextNode(message.user));
 
- const timeDiv = document.createElement('div');
- timeDiv.classList.add('right-align');
+ const timeDiv = document.createElement('p');
  timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
 
  const headerDiv = document.createElement('div');
@@ -32,7 +30,7 @@ function buildMessageDiv(message){
  headerDiv.appendChild(usernameDiv);
  headerDiv.appendChild(timeDiv);
 
- const bodyDiv = document.createElement('div');
+ const bodyDiv = document.createElement('p');
  bodyDiv.classList.add('message-body');
  bodyDiv.appendChild(document.createTextNode(message.text));
 

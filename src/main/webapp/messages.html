@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
     <script src="/js/messageFeed.js"></script>
+    <script src="/js/user-page-loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -22,8 +24,15 @@
 
     <div class='feed-container' id="content">
 
-      <p align='center'>HobbyHub is a place for like-minded people to connect with others who share their similar interests. You can find out who else is in your area, discover exciting events near you, and connect with others who love what you love.</p>
-      <p align='center'>Go to a concert for an underground artist, put together a soccer game with other players near you, the possibilities are endless with HobbyHub.</p>
+      <form id="message-form" action="/messages" method="POST" class="hidden">
+        <br/>
+        <textarea name="text" id="message-input">Post a message...</textarea>
+        <br/>
+        <input type="submit" value="Submit">
+      </form>
+
+      <h1> Posts </h1>
+
       <div id="message-container">Loading...</div>
     </div>
 
