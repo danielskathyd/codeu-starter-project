@@ -149,9 +149,7 @@ public class Datastore {
     userEntity.setProperty("city", user.getCity());
     
     HashSet<String> interests = user.getInterests();
-    for(String s: interests){
-      System.out.println(s);
-    }
+    
     Query interestQuery = new Query("Interest")
     .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, user.getEmail()));
     PreparedQuery interestsResults = datastore.prepare(interestQuery);
