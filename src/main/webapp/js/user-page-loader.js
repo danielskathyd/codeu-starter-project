@@ -167,7 +167,7 @@ function fetchAboutMe(){
  Creates links to make requests for translating messages
  */
 function buildLanguageLinks() {
-    const userPageUrl = '/user-page.html?user=' + parameterUsername;
+    const userPageUrl = '/messages.html?user=' + parameterUsername;
     const languagesListElement  = document.getElementById('languages');
 
     //Iterate through hash map

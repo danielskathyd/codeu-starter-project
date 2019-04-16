@@ -58,18 +58,18 @@ public class MessageServlet extends HttpServlet {
      * an empty array if the user is not provided.
      */
 
-    private void translateMessages(List<Message> messages, String targetLanguageCode) {
-        Translate translate = TranslateOptions.getDefaultInstance().getService();
-
-        for(Message message : messages) {
-            String originalText = message.getText();
-
-            Translation translation =
-                    translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
-            String translatedText = translation.getTranslatedText();
-            message.setText(translatedText);
-        }
-    }
+    // private void translateMessages(List<Message> messages, String targetLanguageCode) {
+    //     Translate translate = TranslateOptions.getDefaultInstance().getService();
+    //
+    //     for(Message message : messages) {
+    //         String originalText = message.getText();
+    //
+    //         Translation translation =
+    //                 translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
+    //         String translatedText = translation.getTranslatedText();
+    //         message.setText(translatedText);
+    //     }
+    // }
 
     /*
     private float getSentimentScore(String text) throws IOException {
@@ -95,13 +95,7 @@ public class MessageServlet extends HttpServlet {
         }
 
         List<Message> messages = datastore.getMessages(user);
-        String targetLanguageCode = request.getParameter("language");
-
-        if(targetLanguageCode != null) {
-            translateMessages(messages, targetLanguageCode);
-        }
-        else
-            response.getWriter().println("EMPTY" );
+        // String targetLanguageCode = request.getParameter("language");
 
         Gson gson = new Gson();
         String json = gson.toJson(messages);
