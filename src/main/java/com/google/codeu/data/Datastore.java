@@ -137,9 +137,10 @@ public class Datastore {
   /** Stores the User in Datastore. */
 
   public void storeUser(User user) {
+    
     Entity userEntity = new Entity("User", user.getEmail());
     //Entity interestEntitiesStorage = new Entity("Interest");
-    User u = getUser(user.getEmail());
+    
     
    
     userEntity.setProperty("email", user.getEmail());
@@ -148,11 +149,20 @@ public class Datastore {
     userEntity.setProperty("city", user.getCity());
     
     HashSet<String> interests = user.getInterests();
-    
+    for(String s: interests){
+      System.out.println(s);
+    }
+    Query interestQuery = new Query("Interest")
+    .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, user.getEmail()));
+    PreparedQuery interestsResults = datastore.prepare(interestQuery);
+    for (Entity entity : interestsResults.asIterable()) {
+      datastore.delete(entity.getKey());
+    }
     for (String interest: interests){
       Entity interestEntity = new Entity("Interest");
       interestEntity.setProperty("interest", interest);
       interestEntity.setProperty("email", user.getEmail());
+
       datastore.put(interestEntity);
     }
     datastore.put(userEntity);
