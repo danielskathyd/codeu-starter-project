@@ -55,10 +55,19 @@ limitations under the License.
             }
             </script>
 
+    <div id="googleMap" style="width:75%;height:600px; margin-left:auto; margin-right:auto;"></div>
 
+    <script>
+    function myMap() {
+        var mapProp= {
+        center:new google.maps.LatLng(37.8694946,-122.2618717),
+    zoom:15,
+    };
+    var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    }
+    </script>
 
-
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfIvcjDhG2MZmVieo3xrm4lFlz0k96LsM&callback=myMap"></script>
 
     <hr/>
 
