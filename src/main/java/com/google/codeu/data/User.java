@@ -26,7 +26,7 @@ public class User {
 		String s[] = interests.split(",");
 
 		for(String a: s){
-			//a = a.strip();
+			a = a.strip();
 			System.out.println(a);
 			this.interests.add(a);
 		}
@@ -75,7 +75,7 @@ public class User {
 	public void setInterests(String interests){
 		String[] s = interests.split(",");
 		for(String a: s){
-			//a = a.strip();
+			a = a.strip();
 			this.interests.add(a);
 		}
 	}
