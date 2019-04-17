@@ -6,6 +6,8 @@ public class User {
 	private String name;
 	private String city;
 	private HashSet<String> interests;
+	private String lat;
+	private String lon;
 	
 
 	
@@ -15,14 +17,17 @@ public class User {
 		this.name = "";
 		this.city = "";
 		this.interests = new HashSet<String>();
+		this.lon = "";
+		this.lat = "";
 	}
 
-	public User(String email, String name, String city, String interests) {
+	public User(String email, String name, String city, String interests,String lon, String lat) {
 		this.email = email;
 		this.name = name;
 		this.city = city;
 		this.interests = new HashSet<String>();
-		
+		this.lon = lon;
+		this.lat = lat;
 		String s[] = interests.split(",");
 		
 		for(String a: s){
@@ -32,11 +37,13 @@ public class User {
 		}
 	}
 
-	public User(String email, String name, String city, HashSet<String> interests) {
+	public User(String email, String name, String city, HashSet<String> interests, String lon, String lat) {
 		this.email = email;
 		this.name = name;
 		this.city = city;
 		this.interests = interests;
+		this.lon = lon;
+		this.lat = lat;
 	}
 	
 	public String getEmail() {
@@ -49,6 +56,8 @@ public class User {
 	public String getName(){
 		return name;
 	}
+	public String getLon(){return lon;}
+	public String getLat(){return lat;}
 	public  void setName(String name){
 		this.name = name;
 	}
@@ -79,4 +88,6 @@ public class User {
 			this.interests.add(a);
 		}
 	}
+	public void setLat(String lat){this.lat = lat;}
+	public void setLon(String lon){this.lon = lon;}
 }

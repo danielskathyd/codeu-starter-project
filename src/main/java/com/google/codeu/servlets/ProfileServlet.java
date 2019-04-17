@@ -60,7 +60,8 @@ public class ProfileServlet extends HttpServlet {
     s.add(userData.getName());
     s.add(userData.getCity());
     s.add(userData.getInterestsString());
-    
+    s.add(userData.getLat());
+    s.add(userData.getLon());
 
     Gson gson = new Gson();
     String json = gson.toJson(s);
@@ -88,8 +89,10 @@ public class ProfileServlet extends HttpServlet {
     if( i == null){
       i = "";
     }
+    String lon= request.getParameter("lon");
+    String lat= request.getParameter("lat");
 
-    User user = new User(userEmail, name, city,i);
+    User user = new User(userEmail, name, city,i, lon, lat);
 
     datastore.storeUser(user);
    
