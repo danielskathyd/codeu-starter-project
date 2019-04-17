@@ -4,4 +4,10 @@ target
 .project
 .idea
 *.iml
-.DS_Store
+.DS_Store.idea
+/.idea/
+out/
+/CodeStyleCheckTool.xml
+/checkstyle.xml
+/.stickler.yml
+!/checkstyle.xml
