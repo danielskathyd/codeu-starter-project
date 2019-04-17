@@ -19,7 +19,7 @@ body {
   margin: auto;
 }
 
-h1, p, a, form {
+h1, p, a, form, div {
   font-family: 'Montserrat';
   text-decoration: none;
 }
@@ -144,6 +144,7 @@ input[type=button], input[type=submit], input[type=reset] {
 .message-header {
   border-bottom: solid 2px rgba(202,51,105,1);
   padding: 5px;
+  font-size: 14px;
   font-weight: 900;
 }
 
