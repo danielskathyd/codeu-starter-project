@@ -41,12 +41,10 @@ limitations under the License.
       <h1 align='left'>Profile</h1>
     </div>
 
-    <h1 id="page-title">User Page</h1>
-
     <div class="feed-container">
-
         <form id="profile-form" action="/profile" method="POST">
-          <h1> Welcome! View or update your information below </h1>
+          <h1> Welcome! View or update your information below. </h1>
+                <h2 id="profile-email">Email:</h2>
                 <p> Name </p>
                 <input type = "text" name = "name" id = "name"><br/>
                 <p> City </p>
@@ -54,16 +52,8 @@ limitations under the License.
                 <p> Interests (seperated by comma) </p>
                 <input type = "text" name = "interests" id = "interests"><br/>
                 <input type="submit" value="Update" onclick = "submitProfileData()">
-
-
           </form>
-
     </div>
-
-
-
-    <hr/>
-
 
   </body>
 

@@ -30,7 +30,7 @@ function submitProfileData() {
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
+  document.getElementById('profile-email').innerText = 'Email:  ' + parameterUsername;
   document.title = parameterUsername + ' - Profile Page';
 }
 

@@ -24,6 +24,10 @@ body {
   border-bottom: 3px solid #E36B84;
 }
 
+#profile-form h2 {
+  font-size: 13px;
+}
+
 #profile-form p {
   font-size: 12px;
   margin: 0 0 5px 0;
