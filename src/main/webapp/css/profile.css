@@ -7,57 +7,46 @@
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
   color: #384047;
 }
 
-form {
-  max-width: 300px;
+#profile-form {
+  max-width: 1000px;
   margin: 10px auto;
   padding: 10px 20px;
-  background: #f4f7f8;
+}
+
+#profile-form h1 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+  padding: 0 0 10px 0;
+  border-bottom: 3px solid #E36B84;
+}
+
+#profile-form p {
+  font-size: 12px;
+  margin: 0 0 5px 0;
+  color: black;
+  font-weight: bold;
 }
 
 h3 {
     text-align: center;
   }
 
-h1 {
-  margin: 0 0 30px 0;
-  text-align: center;
-}
-
-
-input[type = "submit"]
-{
-  border: none;
-  font-size: 16px;
-  height: auto;
-  margin: 0;
-  outline: 0;
-  padding: 15px;
-  width: 100%;
-  background-color: rgb(238,31,32);
-  color: #ffffff;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-  margin-bottom: 30px;
-}
-
 input[type="text"]
  {
   background-color: #FFF7F7;
   border: none;
-  font-size: 16px;
+  font-size: 12px;
   height: auto;
   margin: 0;
-  outline: 0;
-  padding: 15px;
+  padding: 5px;
   width: 100%;
-  background-color: #e8eeef;
-  color: #8a97a0;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
-  margin-bottom: 30px;
+  border-radius: 5px;
+  border: 1px solid #E36B84;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #384047;
+  margin-bottom: 10px;
 }
-
-
-
