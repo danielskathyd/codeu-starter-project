@@ -40,12 +40,15 @@ function fetchProfile(){
     const nameContainer = document.getElementById('name');
     const cityContainer = document.getElementById('city');
     const interestsContainer = document.getElementById('interests');
-    
+    const lonContainer = document.getElementById('lon');
+    const latContainer = document.getElementById('lat);
     console.log(nameContainer.value);
    
     nameContainer.value = aboutMe[0]; 
     cityContainer.value = aboutMe[1];
     interestsContainer.value = aboutMe[2];
+    lonContainer.value = aboutMe[3];
+    latContainer.value = aboutMe[4];
 
   });
 }
