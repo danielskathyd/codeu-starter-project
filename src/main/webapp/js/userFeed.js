@@ -1,5 +1,29 @@
+function submitData() {
+  console.log(document.getElementById("Search"));
+  document.getElementById("search-form").submit();
+}
+
 function fetchUsers(){
-  const url = '/users';
+  const url = '/user-search';
+  fetch(url).then((response) => {
+    return response.json();
+  }).then((users) => {
+    const userContainer = document.getElementById('user-container');
+    if(users.length == 0){
+     userContainer.innerHTML = '<p>No users to display.</p>';
+    }
+    else{
+     userContainer.innerHTML = '';
+    }
+    users.forEach((user) => {
+     const userDiv = buildUserDiv(user);
+     userContainer.appendChild(userDiv);
+    });
+  });
+}
+
+function fetchInterestedUsers(){
+  const url = '/user-search';
   fetch(url).then((response) => {
     return response.json();
   }).then((users) => {
@@ -41,5 +65,5 @@ function buildUserDiv(user){
 }
 
 function buildUI(){
- fetchUsers();
+  fetchUsers();
 }

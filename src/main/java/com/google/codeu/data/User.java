@@ -6,9 +6,9 @@ public class User {
 	private String name;
 	private String city;
 	private HashSet<String> interests;
-	
 
-	
+
+
 	public User(String email, String aboutMe) {
 		this.email = email;
 		this.aboutMe = aboutMe;
@@ -22,11 +22,11 @@ public class User {
 		this.name = name;
 		this.city = city;
 		this.interests = new HashSet<String>();
-		
+
 		String s[] = interests.split(",");
-		
+
 		for(String a: s){
-			a = a.strip();
+			//a = a.strip();
 			System.out.println(a);
 			this.interests.add(a);
 		}
@@ -38,11 +38,11 @@ public class User {
 		this.city = city;
 		this.interests = interests;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public String getAboutMe() {
 		return aboutMe;
 	}
@@ -75,7 +75,7 @@ public class User {
 	public void setInterests(String interests){
 		String[] s = interests.split(",");
 		for(String a: s){
-			a = a.strip();
+			//a = a.strip();
 			this.interests.add(a);
 		}
 	}

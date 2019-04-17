@@ -39,15 +39,8 @@ limitations under the License.
 
       <form id = "search-form" action="/search" method="POST">
         <input type="search" align = 'center' id = "Search" name = "Search" placeholder = "Search">
-        <button type="submit" onclick = myFunction()><i class= "fa fa-search"></i></button>
-        </form> 
-        
-        <script>
-          function myFunction() {
-            console.log(document.getElementById("Search"));
-            document.getElementById("search-form").submit();
-          }
-        </script>
+        <button type="submit" onclick = submitData()><i class= "fa fa-search"></i></button>
+        </form>
 
       <div id="user-container">Loading Users...</div>
 
