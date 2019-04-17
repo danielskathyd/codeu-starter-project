@@ -105,7 +105,7 @@ function fetchMessages() {
  * Builds an element that displays the message.
  * @param {Message} message
  * @return {Element}
- */
+*/
 function buildMessageDiv(message) {
     const headerDiv = document.createElement('div');
     headerDiv.classList.add('message-header');
@@ -125,6 +125,7 @@ function buildMessageDiv(message) {
     messageDiv.appendChild(bodyDiv);
 
     return messageDiv;
+
 }
 
 function fetchAboutMe(){
