@@ -23,14 +23,19 @@ if (!parameterUsername) {
   window.location.replace('/');
 }
 
+function submitProfileData() {
+  console.log(document.getElementById("city"));
+  document.getElementById("profile-form").submit();
+}
+
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
+  document.getElementById('profile-email').innerText = 'Email:  ' + parameterUsername;
   document.title = parameterUsername + ' - Profile Page';
 }
 
 function fetchProfile(){
-  
+
   const url = '/profile?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.json();
@@ -40,10 +45,10 @@ function fetchProfile(){
     const nameContainer = document.getElementById('name');
     const cityContainer = document.getElementById('city');
     const interestsContainer = document.getElementById('interests');
-    
+
     console.log(nameContainer.value);
-   
-    nameContainer.value = aboutMe[0]; 
+
+    nameContainer.value = aboutMe[0];
     cityContainer.value = aboutMe[1];
     interestsContainer.value = aboutMe[2];
 
@@ -58,6 +63,6 @@ function fetchProfile(){
 function buildUI() {
   setPageTitle();
   fetchProfile();
-  
-  
+
+
 }
