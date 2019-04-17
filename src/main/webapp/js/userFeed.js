@@ -30,12 +30,20 @@ function buildUserDiv(user){
  const interestsDiv = document.createElement('div');
  interestsDiv.appendChild(document.createTextNode(user.interests));
 
+ const lonDiv = document.createElement('lon');
+ lonDiv.appendChild(document.createTextNode(user.lon));
+
+ const latDiv = document.createElement('lat');
+ latDiv.appendChild(document.createTextNode(user.lat));
+
  const userDiv= document.createElement('div');
  userDiv.classList.add('user-header');
  userDiv.appendChild(usernameDiv);
  userDiv.appendChild(emailDiv);
  userDiv.appendChild(cityDiv);
  userDiv.appendChild(interestsDiv);
+ userDiv.appendChild(lonDiv);
+ userDiv.appendChild(latDiv);
 
  return userDiv;
 }
