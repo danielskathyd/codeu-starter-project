@@ -33,7 +33,7 @@ import org.jsoup.safety.Whitelist;
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.LanguageServiceClient;
-import com.google.cloud.language.v1.Sentiment;
+//import com.google.cloud.language.v1.Sentiment;
 import java.io.IOException;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.Translate.TranslateOption;
@@ -58,19 +58,20 @@ public class MessageServlet extends HttpServlet {
      * an empty array if the user is not provided.
      */
 
-    private void translateMessages(List<Message> messages, String targetLanguageCode) {
-        Translate translate = TranslateOptions.getDefaultInstance().getService();
+    // private void translateMessages(List<Message> messages, String targetLanguageCode) {
+    //     Translate translate = TranslateOptions.getDefaultInstance().getService();
+    //
+    //     for(Message message : messages) {
+    //         String originalText = message.getText();
+    //
+    //         Translation translation =
+    //                 translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
+    //         String translatedText = translation.getTranslatedText();
+    //         message.setText(translatedText);
+    //     }
+    // }
 
-        for(Message message : messages) {
-            String originalText = message.getText();
-
-            Translation translation =
-                    translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
-            String translatedText = translation.getTranslatedText();
-            message.setText(translatedText);
-        }
-    }
-
+    /*
     private float getSentimentScore(String text) throws IOException {
         Document doc = Document.newBuilder()
                 .setContent(text).setType(Type.PLAIN_TEXT).build();
@@ -80,6 +81,7 @@ public class MessageServlet extends HttpServlet {
         languageService.close();
         return sentiment.getScore();
     }
+    */
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -93,13 +95,7 @@ public class MessageServlet extends HttpServlet {
         }
 
         List<Message> messages = datastore.getMessages(user);
-        String targetLanguageCode = request.getParameter("language");
-
-        if(targetLanguageCode != null) {
-            translateMessages(messages, targetLanguageCode);
-        }
-        else
-            response.getWriter().println("EMPTY" );
+        // String targetLanguageCode = request.getParameter("language");
 
         Gson gson = new Gson();
         String json = gson.toJson(messages);
@@ -119,11 +115,11 @@ public class MessageServlet extends HttpServlet {
         String user = userService.getCurrentUser().getEmail();
         String text = Jsoup.clean(request.getParameter("text"), Whitelist.relaxed());
         String recipient = request.getParameter("recipient");
-        float sentimentScore = this.getSentimentScore(text);
+        // float sentimentScore = this.getSentimentScore(text);
 
-        Message message = new Message(user, text, recipient, sentimentScore);
+        Message message = new Message(user, text, recipient);
         datastore.storeMessage(message);
 
-        response.sendRedirect("/user-page.html?user=" + recipient);
+        response.sendRedirect("/messages.html?user=" + recipient);
     }
 }

@@ -18,29 +18,10 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 const maxMessages = 5;
-//HashMap to map supported languages and their language codes
-var supportedLanguages = new Map();
 
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
 if (!parameterUsername) {
     window.location.replace('/');
-}
-
-/** Sets the page title based on the URL parameter username. */
-function setPageTitle() {
-    document.getElementById('page-title').innerText = parameterUsername;
-    document.title = parameterUsername + ' - User Page';
-}
-
-/**
- * Set supported languages in hashmap
- */
-function fillMap() {
-    supportedLanguages.set('en', 'English');
-    supportedLanguages.set('zh', 'Chinese');
-    supportedLanguages.set('hi', 'Hindi');
-    supportedLanguages.set('es', 'Spanish');
-    supportedLanguages.set('ar', 'Arabic');
 }
 
 /**
@@ -54,27 +35,15 @@ function showMessageFormIfLoggedIn() {
         .then((loginStatus) => {
             if (loginStatus.isLoggedIn){
                 const messageForm = document.getElementById('message-form');
-                const aboutMeForm = document.getElementById('about-me-form');
                 messageForm.action = '/messages?recipient=' + parameterUsername;
                 messageForm.classList.remove('hidden');
-            }
-            if (loginStatus.username == parameterUsername) {
-                const aboutMeForm = document.getElementById('about-me-form');
-                aboutMeForm.classList.remove('hidden');
             }
         });
 }
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
-    const parameterLanguage = urlParams.get('language');
-    let url = '/messages?user=' + parameterUsername;
-
-    if (parameterLanguage &&
-        supportedLanguages.has(parameterLanguage)) {
-        url += '&language=' + parameterLanguage;
-    }
-
+    const url = '/messages?user=' + parameterUsername;
     fetch(url)
         .then((response) => {
             return response.json();
@@ -97,7 +66,6 @@ function fetchMessages() {
                 }
                 messagesContainer.appendChild(messageDiv);
             });
-
         });
 }
 
@@ -112,8 +80,7 @@ function buildMessageDiv(message) {
     headerDiv.appendChild(document.createTextNode(
         'From: ' + message.user +
         ' To: ' + message.recipient +
-        new Date(message.timestamp) +
-        ' [' + message.sentimentalScore + ']'));
+        new Date(message.timestamp)));
 
     const bodyDiv = document.createElement('div');
     bodyDiv.classList.add('message-body');
@@ -128,45 +95,8 @@ function buildMessageDiv(message) {
 
 }
 
-function fetchAboutMe(){
-    const url = '/about?user=' + parameterUsername;
-    fetch(url).then((response) => {
-        return response.text();
-    }).then((aboutMe) => {
-        const aboutMeContainer = document.getElementById('about-me-container');
-        console.log(aboutMe);
-        if(aboutMe == ''){
-            aboutMe = 'This user has not entered any information about me yet.';
-        }
-        aboutMeContainer.innerHTML = aboutMe;
-        var text = aboutMe,
-            converter = new showdown.Converter(),
-            html = converter.makeHtml(text);
-        console.log(text);
-        aboutMeContainer.innerHTML = html;
-    });
-}
-
-/**
- Creates links to make requests for translating messages
- */
-function buildLanguageLinks() {
-    const userPageUrl = '/user-page.html?user=' + parameterUsername;
-    const languagesListElement  = document.getElementById('languages');
-
-    //Iterate through hash map
-    supportedLanguages.forEach(function(value, key) {
-        languagesListElement.appendChild(createListItem(createLink(
-            userPageUrl + '&language=' + key, value)));
-    });
-}
-
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
-    setPageTitle();
-    showMessageFormIfLoggedIn()
-    fillMap();
+    showMessageFormIfLoggedIn();
     fetchMessages();
-    fetchAboutMe();
-    buildLanguageLinks();
 }

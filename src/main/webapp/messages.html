@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/navigation-loader.js"></script>
+    <script src="/js/messageFeed.js"></script>
+    <script src="/js/message-page-loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  </head>
+  <body onload="addLoginOrLogoutLinkToNavigation(); buildUI();">
+    <div class='header'>
+      <nav align='right'>
+        <ul id="navigation">
+          <li><a href="/">Home</a></li>
+        </ul>
+      </nav>
+      <h1 align='left'>Messages</h1>
+    </div>
+
+    <div class='feed-container' id="content">
+
+      <form id="message-form" action="/messages" method="POST" class="hidden">
+        <br/>
+        <textarea name="text" id="message-input">Post a message...</textarea>
+        <br/>
+        <input type="submit" value="Submit">
+      </form>
+
+      <h1> Posts </h1>
+
+      <div id="message-container">Loading...</div>
+    </div>
+
+  </body>
+</html>
