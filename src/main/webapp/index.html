@@ -21,19 +21,37 @@ limitations under the License.
     <title>CodeU 2019 Starter Project</title>
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
+    <script src="/js/userFeed.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  <body onload="addLoginOrLogoutLinkToNavigation();">
-    <nav>
+  <body onload="addLoginOrLogoutLinkToNavigation(); buildUI();">
+    <nav align='center'>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
       </ul>
     </nav>
-    <h1>CodeU Starter Project</h1>
-    <p>This is the CodeU starter project. Click the links above to login and visit your page.
-    You can post messages on your page, and you can visit other user pages if you have
-    their URL.</p>
-    <p>This is your code now! Feel free to make changes, and don't be afraid to get creative!
-    You could start by modifying this page to tell the world more about your team.</p>
-    <p> Hello world! </p>
+
+    <div class='feed-container'>
+
+      <h1 align='center'>Welcome to HobbyHub!</h1>
+      <p align='center'>HobbyHub is a place for like-minded people to connect with others who share their similar interests. You can find out who else is in your area, discover exciting events near you, and connect with others who love what you love.</p>
+      <p align='center'>Go to a concert for an underground artist, put together a soccer game with other players near you, the possibilities are endless with HobbyHub.</p>
+
+      <form id = "search-form" action="/search" method="POST">
+        <input type="search" align = 'center' id = "Search" name = "Search" placeholder = "Search">
+        <button type="submit" onclick = myFunction()><i class= "fa fa-search"></i></button>
+        </form> 
+        
+        <script>
+          function myFunction() {
+            console.log(document.getElementById("Search"));
+            document.getElementById("search-form").submit();
+          }
+        </script>
+
+      <div id="user-container">Loading Users...</div>
+
+    </div>
+
   </body>
 </html>
