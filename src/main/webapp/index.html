@@ -23,6 +23,8 @@ limitations under the License.
     <script src="/js/navigation-loader.js"></script>
     <script src="/js/userFeed.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   </head>
@@ -37,10 +39,11 @@ limitations under the License.
     </div>
 
     <div class='feed-container'>
-
+      <div class='description'>
       <p align='center'>HobbyHub is a place for like-minded people to connect with others who share their similar interests. You can find out who else is in your area, discover exciting events near you, and connect with others who love what you love.</p>
       <p align='center'>Go to a concert for an underground artist, put together a soccer game with other players near you, the possibilities are endless with HobbyHub.</p>
-
+      </div>
+      <p class='suggestions'>Top Suggestions</p>
       <form id = "search-form" action="/search" method="POST">
         <input type="search" align = 'center' id = "Search" name = "Search" placeholder = "Search">
         <button type="submit" onclick = myFunction()><i class= "fa fa-search"></i></button>
