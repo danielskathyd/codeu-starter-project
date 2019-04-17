@@ -120,6 +120,6 @@ public class MessageServlet extends HttpServlet {
         Message message = new Message(user, text, recipient);
         datastore.storeMessage(message);
 
-        response.sendRedirect("/messsages.html?user=" + recipient);
+        response.sendRedirect("/messages.html?user=" + recipient);
     }
 }
