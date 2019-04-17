@@ -25,6 +25,7 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.FetchOptions;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -117,15 +118,52 @@ public class Datastore {
     return messages;
   }
 
+  public void storeSearch(String userEmail, String search){
+
+    Entity searchEntity = new Entity("Search", userEmail);
+    searchEntity.setProperty("search", search);
+    searchEntity.setProperty("email", userEmail);
+    datastore.put(searchEntity);
+  }
+
+  public String getSearch(String email){
+    Query query = new Query("Search")
+    .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
+
+    PreparedQuery results = datastore.prepare(query);
+    return (String) (results.asSingleEntity().getProperty("search"));
+    
+  }
+
   /** Stores the User in Datastore. */
 
   public void storeUser(User user) {
+    
     Entity userEntity = new Entity("User", user.getEmail());
+    //Entity interestEntitiesStorage = new Entity("Interest");
+    
+    
+   
     userEntity.setProperty("email", user.getEmail());
     userEntity.setProperty("aboutMe", user.getAboutMe());
     userEntity.setProperty("name", user.getName());
     userEntity.setProperty("city", user.getCity());
-    userEntity.setProperty("interests", user.getInterests());
+    
+    HashSet<String> interests = user.getInterests();
+    
+    Query interestQuery = new Query("Interest")
+    .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, user.getEmail()));
+    PreparedQuery interestsResults = datastore.prepare(interestQuery);
+    for (Entity entity : interestsResults.asIterable()) {
+      datastore.delete(entity.getKey());
+    }
+    for (String interest: interests){
+      Entity interestEntity = new Entity("Interest");
+      interestEntity.setProperty("interest", interest);
+      interestEntity.setProperty("email", user.getEmail());
+
+      datastore.put(interestEntity);
+    }
     datastore.put(userEntity);
   }
 
@@ -143,25 +181,38 @@ public class Datastore {
   public User getUser(String email) {
     Query query = new Query("User")
             .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
+    
+    Query interestQuery = new Query("Interest")
+            .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
+          
     PreparedQuery results = datastore.prepare(query);
+    PreparedQuery interestsResults = datastore.prepare(interestQuery);
     Entity userEntity = results.asSingleEntity();
+    Iterable<Entity> interestEntity = interestsResults.asIterable();
     if (userEntity == null) {
       return null;
     }
     //String aboutMe = (String) userEntity.getProperty("aboutMe");
     String name = "";
     String city = "";
-    String interests = "";
+    HashSet<String> interests = new HashSet<String>();
+    
     if(userEntity.getProperty("name") != null){
        name = (String) userEntity.getProperty("name");
     }
     if(userEntity.getProperty("city") != null){
       city = (String) userEntity.getProperty("city");
     }
-    if(userEntity.getProperty("interests") != null){
-      interests =  (String) userEntity.getProperty("interests");
+    if(interestEntity != null){
+      HashSet<String> s = new HashSet<String>();
+      for(Entity e: interestsResults.asIterable()){
+        s.add((String) e.getProperty("interest"));
+      }
+      interests = s;
+      
+    
     }
-
+    
     User user = new User(email,name, city, interests);
     return user;
   }
@@ -176,12 +227,9 @@ public class Datastore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        String name = (String) entity.getProperty("name");
+       
         String email = (String) entity.getProperty("email");
-        String city = (String) entity.getProperty("city");
-        String interests = (String) entity.getProperty("interests");
-
-        User user = new User(email, name, city, interests);
+        User user = getUser(email);
         users.add(user);
       } catch (Exception e) {
         System.err.println("Error finding user.");
@@ -192,5 +240,33 @@ public class Datastore {
     return users;
   }
 
+  public List<User> getInterestedUsers(String interest){
+    List<User> users = new ArrayList<>();
+    HashSet<String> hs = new HashSet<String>();
+    Query interestQuery = new Query("Interest")
+    .setFilter(new Query.FilterPredicate("interest", FilterOperator.EQUAL, interest));
+    PreparedQuery interestsResults = datastore.prepare(interestQuery);
+    for (Entity entity : interestsResults.asIterable()) {
+      try {
+        String email = (String) entity.getProperty("email");
+        
+        if(!hs.contains(email)){
+          User u  = getUser(email);
+          hs.add(email);
+          users.add(u);
+        }
+      } catch (Exception e) {
+        System.err.println("Error finding user.");
+        System.err.println(entity.toString());
+        e.printStackTrace();
+      }
+    }
+    
+    return users;
+  }
 
-}
+
+  }
+
+
+
