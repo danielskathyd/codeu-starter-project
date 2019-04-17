@@ -57,6 +57,10 @@ limitations under the License.
                 <input type = "text" name = "city" id = "city"><br/>
                 Interests (seperated by comma) <br/>
                 <input type = "text" name = "interests" id = "interests"><br/>
+                Longitude <br/>
+                <input type = "text" name = "longitude" id = "lon"><br/>
+                Latitude <br/>
+                <input type = "text" name = "latitude" id = "lat"><br/>
                 <input type="submit" value="Submit" onclick = "myFunction()">
             </fieldset>
 
@@ -142,6 +146,7 @@ function showPosition(position) {
   "<br>Longitude: " + position.coords.longitude;
 }
 </script>
+  <h1 id="lon"> </h1>
   </body>
 
 </html>
