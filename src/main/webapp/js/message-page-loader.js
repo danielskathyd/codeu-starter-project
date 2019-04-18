@@ -76,23 +76,27 @@ function fetchMessages() {
 */
 function buildMessageDiv(message) {
     const headerDiv = document.createElement('div');
-    headerDiv.classList.add('message-header');
-    headerDiv.appendChild(document.createTextNode(
-        'From: ' + message.user +
-        ' To: ' + message.recipient +
-        new Date(message.timestamp)));
+    const usernameDiv = document.createElement('h1');
+    usernameDiv.appendChild(document.createTextNode(message.user));
 
-    const bodyDiv = document.createElement('div');
+    const timeDiv = document.createElement('p');
+    timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
+
+    const headerDiv = document.createElement('div');
+    headerDiv.classList.add('message-header');
+    headerDiv.appendChild(usernameDiv);
+    headerDiv.appendChild(timeDiv);
+
+    const bodyDiv = document.createElement('p');
     bodyDiv.classList.add('message-body');
-    bodyDiv.innerHTML = message.text;
+    bodyDiv.appendChild(document.createTextNode(message.text));
 
     const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message-div');
+    messageDiv.classList.add("message-div");
     messageDiv.appendChild(headerDiv);
     messageDiv.appendChild(bodyDiv);
 
     return messageDiv;
-
 }
 
 /** Fetches data and populates the UI of the page. */
