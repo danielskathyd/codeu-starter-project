@@ -85,11 +85,13 @@ public class ProfileServlet extends HttpServlet {
 
     String city= Jsoup.clean(request.getParameter("city"), Whitelist.simpleText());
     String i = request.getParameter("interests");
+    Double latitude = Double.parseDouble(request.getParameter("latitude"));
+    Double longitude = Double.parseDouble(request.getParameter("longitude"));
     if( i == null){
       i = "";
     }
 
-    User user = new User(userEmail, name, city,i);
+    User user = new User(userEmail, name, city,i, latitude,longitude);
 
     datastore.storeUser(user);
    

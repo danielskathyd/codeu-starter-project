@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Google Tour</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfIvcjDhG2MZmVieo3xrm4lFlz0k96LsM"></script>
-    <script>
-
-    /** Creates a map that shows landmarks around Google. */
+ /** Creates a map that shows landmarks around Google. */
     function createMap(){
 
       const map = new google.maps.Map(document.getElementById('map'), {
@@ -34,18 +27,3 @@
         infoWindow.open(map, marker);
       });
     }
-  </script>
-    <style>
-    #map{
-      width: 500px;
-      height: 500px;
-      border: thin solid black;
-    }
-  </style>
-</head>
-<body onload="createMap();">
-<h1>Google Tour</h1>
-<p>Here are a few of my favorite places at Google!</p>
-<div id="map"></div>
-</body>
-</html>

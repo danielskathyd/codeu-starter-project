@@ -71,6 +71,17 @@ function fetchProfile(){
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+            var Latitude = document.createElement("div");
+              // and give it some content
+            var lat_value = document.createTextNode(position.coords.latitude);
+              // add the text node to the newly created div
+            Latitude.appendChild(lat_value);
+
+            var Longitude = document.createElement("div");
+                          // and give it some content
+            var lon_value = document.createTextNode(position.coords.longitude);
+                          // add the text node to the newly created div
+            Longitude.appendChild(lon_value);
 
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
@@ -108,10 +119,12 @@ function fetchProfile(){
     }
 
 
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
   fetchProfile();
   initMap();
+  getLocation();
 
 }
