@@ -150,7 +150,8 @@ public class Datastore {
     userEntity.setProperty("city", user.getCity());
     
     HashSet<String> interests = user.getInterests();
-    
+    userEntity.setProperty("latitude", user.getLat());
+    userEntity.setProperty("longitude", user.getLon());
     Query interestQuery = new Query("Interest")
     .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, user.getEmail()));
     PreparedQuery interestsResults = datastore.prepare(interestQuery);
@@ -167,11 +168,12 @@ public class Datastore {
     datastore.put(userEntity);
   }
 
-  public void updateUser(String email, String name, String city, String interests){
+  public void updateUser(String email, String name, String city, String interests, Double lon, Double lat){
     User u = getUser(email);
     u.setName(name);
     u.setCity(city);
     u.setInterests(interests);
+    u.setLocation(lon, lat);
   }
 
   /**
@@ -196,7 +198,8 @@ public class Datastore {
     String name = "";
     String city = "";
     HashSet<String> interests = new HashSet<String>();
-    
+    Double latitude = 0.0;
+    Double longitude = 0.0;
     if(userEntity.getProperty("name") != null){
        name = (String) userEntity.getProperty("name");
     }
@@ -212,8 +215,15 @@ public class Datastore {
       
     
     }
-    
-    User user = new User(email,name, city, interests);
+    if((Double)userEntity.getProperty("latitude") != 0.0){
+      latitude = (Double) userEntity.getProperty("latitude");
+    }
+    if((Double)userEntity.getProperty("longitude") != 0.0){
+      longitude = (Double) userEntity.getProperty("longitude");
+    }
+
+    User user = new User(email,name, city, interests, latitude, longitude);
+
     return user;
   }
 
