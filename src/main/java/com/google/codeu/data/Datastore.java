@@ -218,10 +218,10 @@ public class Datastore {
       
     
     }
-    if((Double)userEntity.getProperty("latitude") != 0.0){
+    if( (Double)userEntity.getProperty("latitude") != 0.0 ){
       latitude = (Double) userEntity.getProperty("latitude");
     }
-    if((Double)userEntity.getProperty("longitude") != 0.0){
+    if( (Double)userEntity.getProperty("longitude") != 0.0){
       longitude = (Double) userEntity.getProperty("longitude");
     }
 
@@ -278,7 +278,6 @@ public class Datastore {
     return users;
   }
 
-  //FOR MARKERS
   public List<UserMarker> getMarkers() {
     List<UserMarker> markers = new ArrayList<>();
 
