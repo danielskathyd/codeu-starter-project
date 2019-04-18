@@ -90,6 +90,12 @@ nav a {
   justify-content: space-around;
   margin: 10px 0;
   padding: 10px 0;
+  color: black;
+}
+
+.user-header:hover {
+  background-color: rgb(239, 239, 239);
+  cursor: pointer;
 }
 
 textarea {
