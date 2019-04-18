@@ -38,6 +38,26 @@ body {
 h3 {
     text-align: center;
   }
+#find {
+  max-width: 1000px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  color: #384047;
+}
+#find h1 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+  padding: 0 0 10px 0;
+  border-bottom: 3px solid #E36B84;
+}
+
+#find h2{
+  font-size: 12px;
+  margin: 0 0 5px 0;
+  color: black;
+  font-weight: bold;
+}
 
 input[type="text"]
  {
