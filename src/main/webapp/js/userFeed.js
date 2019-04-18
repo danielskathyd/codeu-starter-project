@@ -18,6 +18,7 @@ function fetchUsers(){
 }
 
 function buildUserDiv(user){
+
  const usernameDiv = document.createElement('div');
  usernameDiv.appendChild(document.createTextNode(user.name));
 
@@ -37,7 +38,12 @@ function buildUserDiv(user){
  userDiv.appendChild(cityDiv);
  userDiv.appendChild(interestsDiv);
 
- return userDiv;
+ const userLink = document.createElement('a');
+ var link = "messages.html?user=" + user.email;
+ userLink.href = link;
+ userLink.appendChild(userDiv);
+
+ return userLink;
 }
 
 function buildUI(){
