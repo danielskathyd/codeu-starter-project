@@ -1,0 +1,30 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: #384047;
+}
+
+
+/* Remove bullet points from navigation bar. */
+nav ul {
+  list-style-type: none;
+  padding-bottom: 20px;
+  margin: auto;
+  font-size: 12px;
+}
+
+/* Keep navigation menu on one line. */
+nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+nav a {
+  color: white;
+}

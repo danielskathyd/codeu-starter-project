@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 /**
  * Handles fetching and saving {@link UserMarker} instances.
  */
-@WebServlet("/maps")
+@WebServlet("/Maps")
 public class UserMarkerServlet extends HttpServlet {
 
     private Datastore datastore;

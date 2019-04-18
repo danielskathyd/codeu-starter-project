@@ -10,8 +10,6 @@ public class User {
 	private Double longitude;
 
 
-
-
 	public User(String email, String aboutMe) {
 		this.email = email;
 		this.aboutMe = aboutMe;

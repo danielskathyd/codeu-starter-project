@@ -278,6 +278,7 @@ public class Datastore {
     return users;
   }
 
+  //FOR MARKERS
   public List<UserMarker> getMarkers() {
     List<UserMarker> markers = new ArrayList<>();
 
