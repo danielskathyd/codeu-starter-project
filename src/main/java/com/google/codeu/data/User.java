@@ -6,8 +6,8 @@ public class User {
 	private String name;
 	private String city;
 	private HashSet<String> interests;
-	private String lat;
-	private String lon;
+	private Double lat;
+	private Double lon;
 	
 
 	
@@ -17,11 +17,11 @@ public class User {
 		this.name = "";
 		this.city = "";
 		this.interests = new HashSet<String>();
-		this.lon = "";
-		this.lat = "";
+		this.lon = 0.0;
+		this.lat = 0.0;
 	}
 
-	public User(String email, String name, String city, String interests,String lon, String lat) {
+	public User(String email, String name, String city, String interests, Double lon, Double lat) {
 		this.email = email;
 		this.name = name;
 		this.city = city;
@@ -37,7 +37,7 @@ public class User {
 		}
 	}
 
-	public User(String email, String name, String city, HashSet<String> interests, String lon, String lat) {
+	public User(String email, String name, String city, HashSet<String> interests, Double lon, Double lat) {
 		this.email = email;
 		this.name = name;
 		this.city = city;
@@ -56,8 +56,8 @@ public class User {
 	public String getName(){
 		return name;
 	}
-	public String getLon(){return lon;}
-	public String getLat(){return lat;}
+	public Double getLon(){ return lon;}
+	public Double getLat(){ return lat;}
 	public  void setName(String name){
 		this.name = name;
 	}
@@ -88,6 +88,6 @@ public class User {
 			this.interests.add(a);
 		}
 	}
-	public void setLat(String lat){this.lat = lat;}
-	public void setLon(String lon){this.lon = lon;}
+	public void setLat(Double lat){this.lat = lat;}
+	public void setLon(Double lon){this.lon = lon;}
 }

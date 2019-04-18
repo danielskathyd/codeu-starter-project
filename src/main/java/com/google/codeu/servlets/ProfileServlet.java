@@ -89,8 +89,8 @@ public class ProfileServlet extends HttpServlet {
     if( i == null){
       i = "";
     }
-    String lon= request.getParameter("lon");
-    String lat= request.getParameter("lat");
+    Double lon= request.getParameter("lon");
+    Double lat= request.getParameter("lat");
 
     User user = new User(userEmail, name, city,i, lon, lat);
 

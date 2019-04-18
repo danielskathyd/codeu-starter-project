@@ -167,7 +167,7 @@ public class Datastore {
     datastore.put(userEntity);
   }
 
-  public void updateUser(String email, String name, String city, String interests, String lon, String lat){
+  public void updateUser(String email, String name, String city, String interests, Double lon, Double lat){
     User u = getUser(email);
     u.setName(name);
     u.setCity(city);
@@ -197,9 +197,9 @@ public class Datastore {
     //String aboutMe = (String) userEntity.getProperty("aboutMe");
     String name = "";
     String city = "";
-    String lat = "";
-    String lon = "";
-    HashSet<String> interests = new HashSet<String>();
+    Double lat = 0.0;
+    Double lon = 0.0;
+    HashSet<String> interests = new HashSet<>();
     
     if(userEntity.getProperty("name") != null){
        name = (String) userEntity.getProperty("name");
@@ -217,10 +217,10 @@ public class Datastore {
     
     }
     if (userEntity.getProperty("lat") != null) {
-      lat = (String)userEntity.getProperty("lat");
+      lat = (Double) userEntity.getProperty("lat");
     }
     if (userEntity.getProperty("lon") != null) {
-      lon = (String)userEntity.getProperty("lon");
+      lon = (Double) userEntity.getProperty("lon");
     }
     
     User user = new User(email,name, city, interests, lon, lat);
