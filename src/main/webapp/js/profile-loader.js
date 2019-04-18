@@ -54,6 +54,67 @@ function fetchProfile(){
 
   });
 }
+ var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var Latitude = document.createElement("div");
+              // and give it some content
+            var lat_value = document.createTextNode(position.coords.latitude);
+              // add the text node to the newly created div
+            Latitude.appendChild(lat_value);
+
+            var Longitude = document.createElement("div");
+                          // and give it some content
+            var lon_value = document.createTextNode(position.coords.longitude);
+                          // add the text node to the newly created div
+            Longitude.appendChild(lon_value);
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+
+
+    var x = document.getElementById("map");
+    function getLocation() {
+        if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+    } else {
+         x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+    }
 
 
 
@@ -63,6 +124,6 @@ function fetchProfile(){
 function buildUI() {
   setPageTitle();
   fetchProfile();
-
-
+  initMap();
+  getLocation();
 }
