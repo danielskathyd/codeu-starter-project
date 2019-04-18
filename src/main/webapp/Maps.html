@@ -1,54 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Google Tour</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfIvcjDhG2MZmVieo3xrm4lFlz0k96LsM"></script>
+    <title>Maps</title>
+    <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfIvcjDhG2MZmVieo3xrm4lFlz0k96LsM&callback=initMap">
+    </script>
     <script>
+    function fetchUsers(map){
+    const urlParams = new URLSearchParams(window.location.search);
+    //const parameterUsername = urlParams.get('user');
+    //const parameterInterest= urlParams.get('interest');
+    const url = '/users';
+    fetch(url).then((response) => {
+    return response.json();
+    }).then((users) => {
+    /**const userContainer = document.getElementById('user-container');
+    if(users.length == 0){
+    userContainer.innerHTML = '<p>No users to display.</p>';
+    }
+    else{
+    userContainer.innerHTML = '';
+    } */
+
+    users.forEach((user) => {
+    var latitude = user.latitude ;
+    var longitude = user.longitude;
+    var name     = user.name;
+    var interest = user.interest;
+    addLandMark(map, latitude, longitude, name, interest);
+    });
+    });
+    }
+
 
     /** Creates a map that shows landmarks around Google. */
-    function createMap(){
 
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 37.422403, lng: -122.088073},
-        zoom: 15
-      });
-
-      addLandmark(map, 37.423829, -122.092154, 'Google West Campus', 'Google West Campus is home to YouTube and Maps.')
-      addLandmark(map, 37.421903, -122.084674, 'Stan the T-Rex', 'This is Stan, the T-Rex statue.')
-      addLandmark(map, 37.420919, -122.086619, 'Permanente Creek Trail', 'Permanente Creek Trail connects Google to a system of bike trails.');
-
-       for (user in
-
-    }
 
     /** Adds a marker that shows an InfoWindow when clicked. */
 
     function addLandmark(map, lat, lng, title, description){
-      const marker = new google.maps.Marker({
-        position: {lat: lat, lng: lng},
-        map: map,
-        title: title
-      });
+    const marker = new google.maps.Marker({
+    position: {lat: lat, lng: lng},
+    map: map,
+    title: title
+    });
 
-      var infoWindow = new google.maps.InfoWindow({
-        content: description
-      });
-      marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-      });
+    var infoWindow = new google.maps.InfoWindow({
+    content: description
+    });
+    marker.addListener('click', function() {
+    infoWindow.open(map, marker);
+    });
     }
-  </script>
+
+    var map, infoWindow;
+    function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 6
+    });
+    infoWindow = new google.maps.InfoWindow;
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+    };
+
+    infoWindow.setPosition(pos);
+    infoWindow.setContent('Location found.');
+    infoWindow.open(map);
+    map.setCenter(pos);
+    }, function() {
+    handleLocationError(true, infoWindow, map.getCenter());
+    });
+    } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+    }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+    'Error: The Geolocation service failed.' :
+    'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+    }
+
+
+    function createMap(){
+
+    initMap();
+    fetchUsers(map);
+    }
+
+</script>
     <style>
     #map{
       width: 500px;
-      height: 500px;
+      height: 1000px;
       border: thin solid black;
     }
   </style>
+
 </head>
 <body onload="createMap();">
-<h1>Google Tour</h1>
-<p>Here are a few of my favorite places at Google!</p>
+<h1>See What others love doing</h1>
+<p>Click on them to see their name and description</p>
 <div id="map"></div>
 </body>
 </html>
