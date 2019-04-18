@@ -1,5 +1,8 @@
 function fetchUsers(){
-  const url = '/users';
+  const urlParams = new URLSearchParams(window.location.search);
+    //const parameterUsername = urlParams.get('user');
+    const parameterInterest= urlParams.get('interest');
+  const url = '/users'+"?interest="+parameterInterest;
   fetch(url).then((response) => {
     return response.json();
   }).then((users) => {
@@ -10,6 +13,7 @@ function fetchUsers(){
     else{
      userContainer.innerHTML = '';
     }
+
     users.forEach((user) => {
      const userDiv = buildUserDiv(user);
      userContainer.appendChild(userDiv);

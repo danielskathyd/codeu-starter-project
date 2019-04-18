@@ -8,6 +8,9 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,14 +46,25 @@ public class UserFeedServlet extends HttpServlet {
 
     response.setContentType("application/json");
 
+    String s = request.getParameter("interest");
+    
+    List<User> users = null;
+    if(!s.equals("null") && !s.equals("")){
+       users = datastore.getInterestedUsers(s);
+    }
+    else{
+      users = datastore.getAllUsers();
+    }
     UserService userService = UserServiceFactory.getUserService();
     String userEmail = userService.getCurrentUser().getEmail();
-    String interest = datastore.getSearch(userEmail);
-    List<User> users = datastore.getInterestedUsers(interest);
+    //String interest = datastore.getSearch(userEmail);
+    //List<User> users = datastore.getInterestedUsers(interest);
+
     Gson gson = new Gson();
     String json = gson.toJson(users);
 
     response.getOutputStream().println(json);
+    
   }
 
   
