@@ -60,7 +60,8 @@ public class ProfileServlet extends HttpServlet {
     s.add(userData.getName());
     s.add(userData.getCity());
     s.add(userData.getInterestsString());
-    
+    s.add(Double.toString(userData.getLat()));
+    s.add(Double.toString(userData.getLon()));
 
     Gson gson = new Gson();
     String json = gson.toJson(s);

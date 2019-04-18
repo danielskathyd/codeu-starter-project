@@ -166,6 +166,9 @@ public class Datastore {
       datastore.put(interestEntity);
     }
     datastore.put(userEntity);
+
+    UserMarker marker = new UserMarker(user.getLat(), user.getLon(),user.getInterests(), user.getEmail());
+    storeMarker(marker);
   }
 
   public void updateUser(String email, String name, String city, String interests, Double lon, Double lat){
@@ -273,6 +276,39 @@ public class Datastore {
     }
     
     return users;
+  }
+
+  public List<UserMarker> getMarkers() {
+    List<UserMarker> markers = new ArrayList<>();
+
+    Query query = new Query("UserMarker");
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      try {
+        double lat = (double) entity.getProperty("lat");
+        double lng = (double) entity.getProperty("lng");
+        HashSet<String> interest = (HashSet)entity.getProperty("interest");
+        String name = (String) entity.getProperty("name");
+
+        UserMarker marker = new UserMarker(lat, lng,interest, name );
+        markers.add(marker);
+      } catch (Exception e) {
+        System.err.println("Error reading marker.");
+        System.err.println(entity.toString());
+        e.printStackTrace();
+      }
+    }
+    return markers;
+  }
+
+  public void storeMarker(UserMarker marker) {
+    Entity markerEntity = new Entity("UserMarker");
+    markerEntity.setProperty("lat", marker.getLat());
+    markerEntity.setProperty("lng", marker.getLng());
+    markerEntity.setProperty("interest", marker.getInterest());
+    markerEntity.setProperty("name", marker.getName());
+    datastore.put(markerEntity);
   }
 
 

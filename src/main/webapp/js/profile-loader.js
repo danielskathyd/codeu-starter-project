@@ -138,17 +138,6 @@ function fetchProfile(){
                     var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
                     document.getElementById("result").innerHTML = positionInfo;
                 });
-
-                /**var Latitude = document.createElement("div");
-                var lat_value = document.createTextNode(position.coords.latitude);
-                              // add the text node to the newly created div
-                Latitude.appendChild(lat_value);
-
-                            var Longitude = document.createElement("div");
-                                          // and give it some content
-                            var lon_value = document.createTextNode(position.coords.longitude);
-                                          // add the text node to the newly created div
-                            Longitude.appendChild(lon_value); *//
             } else{
                 alert("Sorry, your browser does not support HTML5 geolocation.");
             }

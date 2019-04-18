@@ -98,4 +98,5 @@ public class User {
 	public Double getLon(){
 		return longitude;
 	}
+
 }
