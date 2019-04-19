@@ -72,21 +72,17 @@ limitations under the License.
             <input type = "text" name = "latitude" id = "latitude"><br/>
                 <input type="submit" value="Update" onclick = "submitProfileData()">
           </form>
-    </div>
-    <div class="find">
-        <h1 align ="left"> Find </h1>
-        <h2 align ="left"> explore what you love with others near you </h2>
-    </div>
+        <h1 id='explore-title'> Explore what you love with others near you! </h1>
+        <button type="button" onclick="showPosition();">Show Position</button>
+        <div id="result">
+            <!--Position information will be inserted here-->
+        </div>
     <div id="map">
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfIvcjDhG2MZmVieo3xrm4lFlz0k96LsM&callback=initMap">
         </script>
     </div>
-
-    <div id="result">
-        <!--Position information will be inserted here-->
     </div>
-    <button type="button" onclick="showPosition();">Show Position</button>
 
 
   </body>
