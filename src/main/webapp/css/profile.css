@@ -16,12 +16,16 @@ body {
   padding: 10px 20px;
 }
 
-#profile-form h1 {
+#profile-form h1, #explore-title {
   font-size: 14px;
   font-weight: bold;
   margin: 0 0 15px 0;
   padding: 0 0 10px 0;
   border-bottom: 3px solid #E36B84;
+}
+
+#explore-title {
+  margin: 0 20px;
 }
 
 #profile-form h2 {
@@ -33,6 +37,10 @@ body {
   margin: 0 0 5px 0;
   color: black;
   font-weight: bold;
+}
+
+.feed-container {
+  height: 1200px;
 }
 
 h3 {
@@ -53,4 +61,18 @@ input[type="text"]
   background-color: rgba(255, 255, 255, 0.5);
   color: #384047;
   margin-bottom: 10px;
+}
+
+#map {
+  width: 90%;
+  margin: auto;
+}
+
+button[type="button"], #result {
+  margin: 0 20px;
+  margin-top: 15px;
+}
+
+#result {
+  margin-bottom: 15px;
 }
