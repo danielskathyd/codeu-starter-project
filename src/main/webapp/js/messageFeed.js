@@ -1,6 +1,9 @@
+const urlParams = new URLSearchParams(window.location.search);
+const parameterUsername = urlParams.get('user');
+
 // Fetch messages and add them to the page.
 function fetchMessages(){
-  const url = '/feed';
+  const url = '/messages?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.json();
   }).then((messages) => {
