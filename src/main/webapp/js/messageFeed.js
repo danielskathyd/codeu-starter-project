@@ -1,6 +1,23 @@
+const urlParams = new URLSearchParams(window.location.search);
+const parameterUsername = urlParams.get('user');
+
+function showMessageFormIfLoggedIn() {
+    fetch('/login-status')
+        .then((response) => {
+            return response.json();
+        })
+        .then((loginStatus) => {
+            if (loginStatus.isLoggedIn){
+                const messageForm = document.getElementById('message-form');
+                messageForm.action = '/messages?recipient=' + parameterUsername;
+                messageForm.classList.remove('hidden');
+            }
+        });
+}
+
 // Fetch messages and add them to the page.
 function fetchMessages(){
-  const url = '/feed';
+  const url = '/messages?user=' + parameterUsername;
   fetch(url).then((response) => {
     return response.json();
   }).then((messages) => {
@@ -44,5 +61,6 @@ function buildMessageDiv(message){
 
 // Fetch data and populate the UI of the page.
 function buildUI(){
+  showMessageFormIfLoggedIn()
  fetchMessages();
 }
